@@ -1,4 +1,18 @@
+using Microsoft.EntityFrameworkCore;
+using MinhasFinancas.Domain.Entities;
+using MinhasFinancas.Infra.Data.Configurations;
+using MinhasFinancas.WebApi;
+
 var builder = WebApplication.CreateBuilder(args);
+
+
+//Conexao Banco de Dados
+builder.Services.AddDbContext<Context>(options =>
+    options.UseSqlServer(Settings.DefaultConnection));
+builder.Services.AddDefaultIdentity<User>(options =>
+    options.SignIn.RequireConfirmedAccount = false)
+    .AddEntityFrameworkStores<Context>();
+
 
 // Add services to the container.
 
