@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MinhasFinancas.Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace MinhasFinancas.Domain.Entities
 {
-    [Table("Category")]
-    public class Category : BaseEntity
+    [Table("Payment_Method")]
+    public class PaymentMethod : BaseEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("Category_Id")]
+        [Column("Payment_Method_Id")]
         public override int Id { get; protected set; }
 
         [Required()]
@@ -22,8 +23,12 @@ namespace MinhasFinancas.Domain.Entities
         public string? Name { get; set; }
 
         [Required()]
-        [Column("Type")]
-        public bool Type { get; set; }
+        [Column("Value")]
+        public Decimal Value { get; set; }
+
+        [Required()]
+        [Column("Payment_Type")]
+        public PaymentType PaymentType { get; set; }
 
         [Required()]
         [Column("Creation_Date")]
@@ -33,9 +38,9 @@ namespace MinhasFinancas.Domain.Entities
         [Column("Last_Edition")]
         public DateTime LastEdtion { get; set; }
 
-        [Column("User_Id")]
-        public string? UserId { get; set; }
-        public User? User { get; set; }
+        [Required()]
+        public int WalletId { get; set; }
+        public Wallet? Wallet { get; set; }
 
         public ICollection<Movement>? Movements { get; set; }
     }
