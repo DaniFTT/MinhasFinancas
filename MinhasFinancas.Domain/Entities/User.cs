@@ -12,12 +12,15 @@ namespace MinhasFinancas.Domain.Entities
     public class User : IdentityUser
     {
         [Column("User_Fullname")]
-        [Required(ErrorMessage = "O Nome é obrigatório")]
+        [Required()]
         [MaxLength(50)]
         public string? UserFullname { get; set; }
 
         [Column("User_Age")]
-        [Required(ErrorMessage ="A Idade é obrigatória")]
+        [Required()]
         public int UserAge { get; set; }
+
+        [ForeignKey("Category_Id")]
+        public ICollection<Category>? Categories { get; set; }
     }
 }
