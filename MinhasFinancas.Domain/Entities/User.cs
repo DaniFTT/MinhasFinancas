@@ -1,13 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using MinhasFinancas.Domain.Enums;
-using MinhasFinancas.Infra.CrossCutting.Helpers;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MinhasFinancas.Domain.Entities
 {
@@ -29,10 +23,9 @@ namespace MinhasFinancas.Domain.Entities
 
         public ICollection<Movement>? Movements { get; set; }
 
-        [Required()]
+        [ForeignKey("Wallet")]
+        [Column("Wallet_Id")]
         public int? WalletId { get; set; }
         public Wallet? Wallet { get; set; }
-
-
     }
 }

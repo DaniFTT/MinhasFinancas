@@ -1,11 +1,6 @@
 ﻿using MinhasFinancas.Domain.Enums;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MinhasFinancas.Domain.Entities
 {
@@ -38,7 +33,8 @@ namespace MinhasFinancas.Domain.Entities
         [Column("Last_Edition")]
         public DateTime LastEdtion { get; set; }
 
-        [Required()]
+        [ForeignKey("Wallet")]
+        [Column("Wallet_Id")]
         public int WalletId { get; set; }
         public Wallet? Wallet { get; set; }
 

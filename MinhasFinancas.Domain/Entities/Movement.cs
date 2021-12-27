@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MinhasFinancas.Domain.Entities
 {
@@ -29,12 +24,15 @@ namespace MinhasFinancas.Domain.Entities
         [Column("Value")]
         public Decimal Value { get; set; }
 
+        [ForeignKey("PaymentMethod")]
         [Column("Payment_Method_Id")]
         public int? PaymentMethodId { get; set; }
         public PaymentMethod? PaymentMethod { get; set; }
 
-        [Required()]
-        public ICollection<Category>? Categories { get; set; }
+        [ForeignKey("Category")]
+        [Column("Category_Id")]
+        public int? CategoryId { get; set; }
+        public Category? Category { get; set; }
 
         [Required()]
         [Column("Date_Of_Movement")]
@@ -49,6 +47,7 @@ namespace MinhasFinancas.Domain.Entities
         public DateTime LastEdtion { get; set; }
 
         [Required()]
+        [ForeignKey("User")]
         [Column("User_Id")]
         public string? UserId { get; set; }
         public User? User { get; set; }
