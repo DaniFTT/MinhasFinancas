@@ -1,11 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MinhasFinancas.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MinhasFinancas.Infra.Data.Configurations
 {
@@ -34,36 +29,6 @@ namespace MinhasFinancas.Infra.Data.Configurations
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<User>().ToTable("AspNetUsers").HasKey(t => t.Id);
-
-            builder.Entity<User>()
-                .HasOne(b => b.Wallet)
-                .WithOne(i => i.User)
-                .HasForeignKey<Wallet>(b => b.UserId);
-
-            builder.Entity<User>()
-                .HasMany(b => b.Categories)
-                .WithOne(i => i.User)
-                .HasForeignKey(b => b.UserId);
-
-            builder.Entity<User>()
-                .HasMany(b => b.Movements)
-                .WithOne(i => i.User)
-                .HasForeignKey(b => b.UserId);
-
-            builder.Entity<PaymentMethod>()
-                .HasOne(b => b.Wallet)
-                .WithMany(i => i.PaymentMethods)
-                .HasForeignKey(b => b.WalletId);
-
-            builder.Entity<PaymentMethod>()
-                .HasMany(b => b.Movements)
-                .WithOne(i => i.PaymentMethod);
-
-            builder.Entity<Movement>()
-                .HasMany(p => p.Categories)
-                .WithMany(p => p.Movements)
-                .UsingEntity(j => j.ToTable("MovementCategories"));
-
 
             base.OnModelCreating(builder);
         }

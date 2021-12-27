@@ -22,21 +22,6 @@ namespace MinhasFinancas.Infra.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("CategoryMovement", b =>
-                {
-                    b.Property<int>("CategoriesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MovementsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CategoriesId", "MovementsId");
-
-                    b.HasIndex("MovementsId");
-
-                    b.ToTable("MovementCategories", (string)null);
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -202,6 +187,7 @@ namespace MinhasFinancas.Infra.Data.Migrations
                         .HasColumnName("Type");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)")
                         .HasColumnName("User_Id");
 
@@ -220,6 +206,10 @@ namespace MinhasFinancas.Infra.Data.Migrations
                         .HasColumnName("Movement_Id");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("int")
+                        .HasColumnName("Category_Id");
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2")
@@ -257,6 +247,8 @@ namespace MinhasFinancas.Infra.Data.Migrations
                         .HasColumnName("Value");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.HasIndex("PaymentMethodId");
 
@@ -297,7 +289,8 @@ namespace MinhasFinancas.Infra.Data.Migrations
                         .HasColumnName("Value");
 
                     b.Property<int>("WalletId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("Wallet_Id");
 
                     b.HasKey("Id");
 
@@ -373,8 +366,8 @@ namespace MinhasFinancas.Infra.Data.Migrations
                         .HasColumnName("User_Type");
 
                     b.Property<int?>("WalletId")
-                        .IsRequired()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("Wallet_Id");
 
                     b.HasKey("Id");
 
@@ -385,6 +378,8 @@ namespace MinhasFinancas.Infra.Data.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("WalletId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -409,25 +404,9 @@ namespace MinhasFinancas.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("Wallet");
-                });
-
-            modelBuilder.Entity("CategoryMovement", b =>
-                {
-                    b.HasOne("MinhasFinancas.Domain.Entities.Category", null)
-                        .WithMany()
-                        .HasForeignKey("CategoriesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MinhasFinancas.Domain.Entities.Movement", null)
-                        .WithMany()
-                        .HasForeignKey("MovementsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -485,13 +464,19 @@ namespace MinhasFinancas.Infra.Data.Migrations
                 {
                     b.HasOne("MinhasFinancas.Domain.Entities.User", "User")
                         .WithMany("Categories")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("MinhasFinancas.Domain.Entities.Movement", b =>
                 {
+                    b.HasOne("MinhasFinancas.Domain.Entities.Category", "Category")
+                        .WithMany("Movements")
+                        .HasForeignKey("CategoryId");
+
                     b.HasOne("MinhasFinancas.Domain.Entities.PaymentMethod", "PaymentMethod")
                         .WithMany("Movements")
                         .HasForeignKey("PaymentMethodId");
@@ -501,6 +486,8 @@ namespace MinhasFinancas.Infra.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Category");
 
                     b.Navigation("PaymentMethod");
 
@@ -518,15 +505,29 @@ namespace MinhasFinancas.Infra.Data.Migrations
                     b.Navigation("Wallet");
                 });
 
+            modelBuilder.Entity("MinhasFinancas.Domain.Entities.User", b =>
+                {
+                    b.HasOne("MinhasFinancas.Domain.Entities.Wallet", "Wallet")
+                        .WithMany()
+                        .HasForeignKey("WalletId");
+
+                    b.Navigation("Wallet");
+                });
+
             modelBuilder.Entity("MinhasFinancas.Domain.Entities.Wallet", b =>
                 {
                     b.HasOne("MinhasFinancas.Domain.Entities.User", "User")
-                        .WithOne("Wallet")
-                        .HasForeignKey("MinhasFinancas.Domain.Entities.Wallet", "UserId")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MinhasFinancas.Domain.Entities.Category", b =>
+                {
+                    b.Navigation("Movements");
                 });
 
             modelBuilder.Entity("MinhasFinancas.Domain.Entities.PaymentMethod", b =>
@@ -539,8 +540,6 @@ namespace MinhasFinancas.Infra.Data.Migrations
                     b.Navigation("Categories");
 
                     b.Navigation("Movements");
-
-                    b.Navigation("Wallet");
                 });
 
             modelBuilder.Entity("MinhasFinancas.Domain.Entities.Wallet", b =>
