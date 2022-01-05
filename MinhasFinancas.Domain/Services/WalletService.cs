@@ -1,9 +1,10 @@
 ﻿using MinhasFinancas.Domain.Entities;
 using MinhasFinancas.Domain.Interfaces.Repositories;
+using MinhasFinancas.Domain.Interfaces.Services;
 
 namespace MinhasFinancas.Domain.Services
 {
-    public class WalletService : BaseService<Wallet>
+    public class WalletService : BaseService<Wallet>, IWalletService
     {
         private readonly IWalletRepository _walletRepository;
         public WalletService(IBaseRepository<Wallet> baseRepository, IWalletRepository walletRepository) : base(baseRepository)

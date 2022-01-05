@@ -1,9 +1,10 @@
 ﻿using MinhasFinancas.Domain.Entities;
 using MinhasFinancas.Domain.Interfaces.Repositories;
+using MinhasFinancas.Domain.Interfaces.Services;
 
 namespace MinhasFinancas.Domain.Services
 {
-    public class MovementService : BaseService<Movement>
+    public class MovementService : BaseService<Movement>, IMovementService
     {
         private readonly IMovementRepository _movementRepository;
         public MovementService(IBaseRepository<Movement> baseRepository, IMovementRepository movementRepository) : base(baseRepository)

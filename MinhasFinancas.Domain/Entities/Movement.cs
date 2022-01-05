@@ -39,17 +39,9 @@ namespace MinhasFinancas.Domain.Entities
         public DateTime DateOfMovement { get; set; }
 
         [Required()]
-        [Column("Creation_Date")]
-        public DateTime CreationDate { get; set; }
-
-        [Required()]
-        [Column("Last_Edition")]
-        public DateTime LastEdtion { get; set; }
-
-        [Required()]
         [ForeignKey("User")]
         [Column("User_Id")]
         public string? UserId { get; set; }
-        public User? User { get; set; }
+        public ApplicationUser? User { get; set; }
     }
 }

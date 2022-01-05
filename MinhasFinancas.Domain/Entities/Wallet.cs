@@ -19,7 +19,7 @@ namespace MinhasFinancas.Domain.Entities
         [ForeignKey("User")]
         [Column("User_Id")]
         public string? UserId { get; set; }
-        public User? User { get; set; }
+        public ApplicationUser? User { get; set; }
 
         public ICollection<PaymentMethod>? PaymentMethods { get; set; }
     }

@@ -1,7 +1,11 @@
-﻿namespace MinhasFinancas.Domain.Interfaces.Repositories
+﻿using MinhasFinancas.Domain.Entities;
+using System.Linq.Expressions;
+
+namespace MinhasFinancas.Domain.Interfaces.Repositories
 {
     public interface IUserRepository
     {
-        Task<string> RetornaIdUsuario(string email);
+        Task<string> GetUserId(string email);
+        Task<List<ApplicationUser>> GetUsers(Expression<Func<ApplicationUser, bool>> exNoticia);
     }
 }

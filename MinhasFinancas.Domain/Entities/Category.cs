@@ -21,19 +21,37 @@ namespace MinhasFinancas.Domain.Entities
         public bool Type { get; set; }
 
         [Required()]
-        [Column("Creation_Date")]
-        public DateTime CreationDate { get; set; }
-
-        [Required()]
-        [Column("Last_Edition")]
-        public DateTime LastEdtion { get; set; }
-
-        [Required()]
         [ForeignKey("User")]
         [Column("User_Id")]
         public string? UserId { get; set; }
-        public User? User { get; set; }
+        public ApplicationUser? User { get; set; }
 
         public ICollection<Movement>? Movements { get; set; }
+
+        public Category()
+        {
+        }
+
+        public Category (Category category)
+        {
+            Name = category.Name;
+            Type = category.Type;
+            CreationDate = DateTime.Now;
+            LastEdtion = DateTime.Now;
+            User = new ApplicationUser();
+            Movements = new List<Movement>();
+        }
+
+        public Category(int id, string name, bool type)
+        {
+            Id = id;
+            Name = name;
+            Type = type;
+            CreationDate = DateTime.Now;
+            LastEdtion = DateTime.Now;
+            User = new ApplicationUser();
+            UserId = id.ToString();
+            Movements = new List<Movement>();
+        }
     }
 }

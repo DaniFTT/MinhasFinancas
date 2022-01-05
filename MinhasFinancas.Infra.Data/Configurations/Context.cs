@@ -4,7 +4,7 @@ using MinhasFinancas.Domain.Entities;
 
 namespace MinhasFinancas.Infra.Data.Configurations
 {
-    public class Context : IdentityDbContext<User>
+    public class Context : IdentityDbContext<ApplicationUser>
     {
         public Context(DbContextOptions<Context> options) : base(options)
         {
@@ -15,7 +15,7 @@ namespace MinhasFinancas.Infra.Data.Configurations
         public DbSet<PaymentMethod> PaymentMethod { get; set; }
         public DbSet<Movement> Movement { get; set; }
         public DbSet<Wallet> Wallet { get; set; }
-        public DbSet<User> User { get; set; }
+        public DbSet<ApplicationUser> User { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -28,7 +28,7 @@ namespace MinhasFinancas.Infra.Data.Configurations
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<User>().ToTable("AspNetUsers").HasKey(t => t.Id);
+            builder.Entity<ApplicationUser>().ToTable("AspNetUsers").HasKey(t => t.Id);
 
             base.OnModelCreating(builder);
         }

@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-
-namespace MinhasFinancas.Infra.CrossCutting.Helpers
+namespace MinhasFinancas.Domain.Helpers
 {
     public static class EnumHelper
     {

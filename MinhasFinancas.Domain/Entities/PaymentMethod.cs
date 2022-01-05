@@ -25,14 +25,6 @@ namespace MinhasFinancas.Domain.Entities
         [Column("Payment_Type")]
         public PaymentType PaymentType { get; set; }
 
-        [Required()]
-        [Column("Creation_Date")]
-        public DateTime CreationDate { get; set; }
-
-        [Required()]
-        [Column("Last_Edition")]
-        public DateTime LastEdtion { get; set; }
-
         [ForeignKey("Wallet")]
         [Column("Wallet_Id")]
         public int WalletId { get; set; }

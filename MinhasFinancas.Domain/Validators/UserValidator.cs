@@ -3,7 +3,7 @@ using MinhasFinancas.Domain.Entities;
 
 namespace MinhasFinancas.Domain.Validators
 {
-    public class UserValidator : AbstractValidator<User>
+    public class UserValidator : AbstractValidator<ApplicationUser>
     {
         public UserValidator()
         {
@@ -11,7 +11,7 @@ namespace MinhasFinancas.Domain.Validators
                 .NotEmpty().WithMessage("Por favor, preencha a Idade.")
                 .NotNull().WithMessage("Por favor, preencha a Idade.");
 
-            RuleFor(c => c.Email)
+            RuleFor(c => c.UserName)
                 .NotEmpty().WithMessage("Por favor, preencha o email.")
                 .NotNull().WithMessage("Por favor, preencha o email.");
 
