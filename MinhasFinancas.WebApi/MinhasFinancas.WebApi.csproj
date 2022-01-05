@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.1">
@@ -17,8 +19,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Auth\Auth.csproj" />
+    <ProjectReference Include="..\IoC\IoC.csproj" />
     <ProjectReference Include="..\MinhasFinancas.Application\MinhasFinancas.Application.csproj" />
     <ProjectReference Include="..\MinhasFinancas.Infra.Data\MinhasFinancas.Infra.Data.csproj" />
+    <ProjectReference Include="..\Swagger\Swagger.csproj" />
   </ItemGroup>
 
 </Project>
