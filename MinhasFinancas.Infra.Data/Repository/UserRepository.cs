@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MinhasFinancas.Domain.Entities;
 using MinhasFinancas.Domain.Interfaces.Repositories;
 using MinhasFinancas.Infra.Data.Configurations;
+using System.Linq.Expressions;
 
 namespace MinhasFinancas.Infra.Data.Repository
 {
@@ -12,7 +14,7 @@ namespace MinhasFinancas.Infra.Data.Repository
             _optionsBuilder = new DbContextOptions<Context>();
         }
 
-        public async Task<string> RetornaIdUsuario(string email)
+        public async Task<string> GetUserId(string email)
         {
             try
             {
@@ -33,6 +35,14 @@ namespace MinhasFinancas.Infra.Data.Repository
             {
                 return string.Empty;
             }
+        }
+
+        public async Task<List<ApplicationUser>> GetUsers(Expression<Func<ApplicationUser, bool>> exUser)
+        {
+            using (var data = new Context(_optionsBuilder))
+            {
+                return await data.User.Where(exUser).AsNoTracking().ToListAsync();
+            }         
         }
     }
 }

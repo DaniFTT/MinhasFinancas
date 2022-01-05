@@ -12,5 +12,13 @@ namespace MinhasFinancas.Infra.Data.Repository
         {
             _optionsBuilder = new DbContextOptions<Context>();
         }
+
+        public async Task<IEnumerable<Category>> ListCategoryByType(bool type)
+        {
+            using (var data = new Context(_optionsBuilder))
+            {
+                return await data.Set<Category>().AsNoTracking().Where(c => c.Type == type).ToListAsync();
+            }
+        }
     }
 }
