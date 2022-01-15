@@ -18,11 +18,10 @@ namespace MinhasFinancas.Domain.Validators
             }).When(t => !string.IsNullOrEmpty(t.Name)).WithMessage("Nome do plano de contas existente");
 
             RuleFor(c => c.Type)
-                .NotEmpty().WithMessage("Por favor, preencha o Tipo da Categoria.")
                 .NotNull().WithMessage("Por favor, preencha o Tipo da Categoria.");
 
-            RuleFor(c => c.User)
-                .NotNull().WithMessage("Usuário não autenticado.");
+            RuleFor(c => c.UserId)
+                .NotNull().WithMessage("Usuário não autenticado para criar categoria.");
         }
     }
 

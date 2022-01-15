@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace MinhasFinancas.Infra.Data.Migrations
 {
-    public partial class InitialCreation : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -147,9 +148,10 @@ namespace MinhasFinancas.Infra.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Type = table.Column<bool>(type: "bit", nullable: false),
+                    User_Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Creation_Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Last_Edition = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    User_Id = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    Is_Deleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -169,7 +171,10 @@ namespace MinhasFinancas.Infra.Data.Migrations
                     Wallet_Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Total_Value = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    User_Id = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    User_Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Creation_Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Last_Edition = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Is_Deleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -191,9 +196,10 @@ namespace MinhasFinancas.Infra.Data.Migrations
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Value = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Payment_Type = table.Column<int>(type: "int", nullable: false),
+                    Wallet_Id = table.Column<int>(type: "int", nullable: false),
                     Creation_Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Last_Edition = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Wallet_Id = table.Column<int>(type: "int", nullable: false)
+                    Is_Deleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -218,9 +224,10 @@ namespace MinhasFinancas.Infra.Data.Migrations
                     Payment_Method_Id = table.Column<int>(type: "int", nullable: true),
                     Category_Id = table.Column<int>(type: "int", nullable: true),
                     Date_Of_Movement = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    User_Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Creation_Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Last_Edition = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    User_Id = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    Is_Deleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -9,11 +9,12 @@ namespace MinhasFinancas.Domain.Helpers
 {
     public static class EnumHelper
     {
-        public static string? GetDescription<T>(this T enumValue)
+        public static string GetDescription<T>(this T enumValue)
             where T : struct, IConvertible
         {
+
             if (!typeof(T).IsEnum)
-                return null;
+                return string.Empty;
 
             var description = enumValue.ToString();
             var fieldInfo = enumValue.GetType().GetField(enumValue.ToString());
@@ -27,7 +28,7 @@ namespace MinhasFinancas.Domain.Helpers
                 }
             }
 
-            return description;
+            return description ?? string.Empty;
         }
     }
 }

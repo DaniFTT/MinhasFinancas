@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Auth.Models;
+using Microsoft.AspNetCore.Mvc;
 using MinhasFinancas.Application.ViewModels;
 using MinhasFinancas.Application.ViewModels.User;
 using System;
@@ -13,5 +14,6 @@ namespace MinhasFinancas.Application.Interfaces
     {
         Task<IActionResult> Login(LoginViewModel login);
         Task<IActionResult> Register(RegisterViewModel register);
+        Task<AuthResult> RefreshToken(TokenRequestViewModel tokenRequest);
     }
 }

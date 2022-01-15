@@ -25,4 +25,8 @@
     <ProjectReference Include="..\MinhasFinancas.Infra.Data\MinhasFinancas.Infra.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Domain\" />
+  </ItemGroup>
+
 </Project>

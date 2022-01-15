@@ -16,6 +16,9 @@ namespace MinhasFinancas.Domain.Services
         public virtual async Task<T> Add<TValidator>(T obj) where TValidator : AbstractValidator<T>
         {
             Validate(obj, Activator.CreateInstance<TValidator>());
+            obj.CreationDate = DateTime.Now;
+            obj.LastEdtion = DateTime.Now;
+            obj.isDeleted = false;
             await _baseRepository.Add(obj);
             return obj;
         }
@@ -23,6 +26,8 @@ namespace MinhasFinancas.Domain.Services
         public virtual async Task<T> Update<TValidator>(T obj) where TValidator : AbstractValidator<T>
         {
             Validate(obj, Activator.CreateInstance<TValidator>());
+            obj.LastEdtion = DateTime.Now;
+            obj.isDeleted = false;
             await _baseRepository.Update(obj);
             return obj;
         }
@@ -30,7 +35,10 @@ namespace MinhasFinancas.Domain.Services
 
         public virtual async Task<IEnumerable<T>> List() => await _baseRepository.List();
 
-        public virtual async Task Delete(int id) => await _baseRepository.Delete(id);
+        public virtual async Task Delete(T obj)
+        {
+            await _baseRepository.Delete(obj);
+        }
 
         private void Validate(T obj, AbstractValidator<T> validator)
         {

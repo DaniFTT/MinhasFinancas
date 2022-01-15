@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 
 namespace MinhasFinancas.Application.ViewModels.User
 {
-    public class LoginViewModel
+    public class TokenRequestViewModel
     {
         [Required]
-        [DataType(DataType.EmailAddress)]
-        public string UserEmail { get; set; } = string.Empty;
+        public string Token { get; set; } = string.Empty;
 
         [Required]
-        public string UserSenha { get; set; } = string.Empty;
+        public string RefreshToken { get; set; } = string.Empty;
     }
 }

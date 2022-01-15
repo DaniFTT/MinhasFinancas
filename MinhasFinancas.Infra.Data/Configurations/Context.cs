@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MinhasFinancas.Domain.Entities;
 
@@ -16,6 +17,7 @@ namespace MinhasFinancas.Infra.Data.Configurations
         public DbSet<Movement> Movement { get; set; }
         public DbSet<Wallet> Wallet { get; set; }
         public DbSet<ApplicationUser> User { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -12,8 +12,8 @@ using MinhasFinancas.Infra.Data.Configurations;
 namespace MinhasFinancas.Infra.Data.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20211225152717_InitialCreation")]
-    partial class InitialCreation
+    [Migration("20220105012922_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -161,147 +161,7 @@ namespace MinhasFinancas.Infra.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("MinhasFinancas.Domain.Entities.Category", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("Category_Id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CreationDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Creation_Date");
-
-                    b.Property<DateTime>("LastEdtion")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Last_Edition");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
-                        .HasColumnName("Name");
-
-                    b.Property<bool>("Type")
-                        .HasColumnType("bit")
-                        .HasColumnName("Type");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnName("User_Id");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Category");
-                });
-
-            modelBuilder.Entity("MinhasFinancas.Domain.Entities.Movement", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("Movement_Id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int?>("CategoryId")
-                        .HasColumnType("int")
-                        .HasColumnName("Category_Id");
-
-                    b.Property<DateTime>("CreationDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Creation_Date");
-
-                    b.Property<DateTime>("DateOfMovement")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Date_Of_Movement");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)")
-                        .HasColumnName("Description");
-
-                    b.Property<DateTime>("LastEdtion")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Last_Edition");
-
-                    b.Property<int?>("PaymentMethodId")
-                        .HasColumnType("int")
-                        .HasColumnName("Payment_Method_Id");
-
-                    b.Property<bool>("Type")
-                        .HasColumnType("bit")
-                        .HasColumnName("Type");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnName("User_Id");
-
-                    b.Property<decimal>("Value")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("Value");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("PaymentMethodId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Movement");
-                });
-
-            modelBuilder.Entity("MinhasFinancas.Domain.Entities.PaymentMethod", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("Payment_Method_Id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CreationDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Creation_Date");
-
-                    b.Property<DateTime>("LastEdtion")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Last_Edition");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
-                        .HasColumnName("Name");
-
-                    b.Property<int>("PaymentType")
-                        .HasColumnType("int")
-                        .HasColumnName("Payment_Type");
-
-                    b.Property<decimal>("Value")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("Value");
-
-                    b.Property<int>("WalletId")
-                        .HasColumnType("int")
-                        .HasColumnName("Wallet_Id");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("WalletId");
-
-                    b.ToTable("Payment_Method");
-                });
-
-            modelBuilder.Entity("MinhasFinancas.Domain.Entities.User", b =>
+            modelBuilder.Entity("MinhasFinancas.Domain.Entities.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -386,6 +246,158 @@ namespace MinhasFinancas.Infra.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("MinhasFinancas.Domain.Entities.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Category_Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Creation_Date");
+
+                    b.Property<DateTime>("LastEdtion")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Last_Edition");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("Name");
+
+                    b.Property<bool>("Type")
+                        .HasColumnType("bit")
+                        .HasColumnName("Type");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("User_Id");
+
+                    b.Property<bool>("isDeleted")
+                        .HasColumnType("bit")
+                        .HasColumnName("Is_Deleted");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Category");
+                });
+
+            modelBuilder.Entity("MinhasFinancas.Domain.Entities.Movement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Movement_Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("int")
+                        .HasColumnName("Category_Id");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Creation_Date");
+
+                    b.Property<DateTime>("DateOfMovement")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Date_Of_Movement");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)")
+                        .HasColumnName("Description");
+
+                    b.Property<DateTime>("LastEdtion")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Last_Edition");
+
+                    b.Property<int?>("PaymentMethodId")
+                        .HasColumnType("int")
+                        .HasColumnName("Payment_Method_Id");
+
+                    b.Property<bool>("Type")
+                        .HasColumnType("bit")
+                        .HasColumnName("Type");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("User_Id");
+
+                    b.Property<decimal>("Value")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("Value");
+
+                    b.Property<bool>("isDeleted")
+                        .HasColumnType("bit")
+                        .HasColumnName("Is_Deleted");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("PaymentMethodId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Movement");
+                });
+
+            modelBuilder.Entity("MinhasFinancas.Domain.Entities.PaymentMethod", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Payment_Method_Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Creation_Date");
+
+                    b.Property<DateTime>("LastEdtion")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Last_Edition");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("Name");
+
+                    b.Property<int>("PaymentType")
+                        .HasColumnType("int")
+                        .HasColumnName("Payment_Type");
+
+                    b.Property<decimal>("Value")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("Value");
+
+                    b.Property<int>("WalletId")
+                        .HasColumnType("int")
+                        .HasColumnName("Wallet_Id");
+
+                    b.Property<bool>("isDeleted")
+                        .HasColumnType("bit")
+                        .HasColumnName("Is_Deleted");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WalletId");
+
+                    b.ToTable("Payment_Method");
+                });
+
             modelBuilder.Entity("MinhasFinancas.Domain.Entities.Wallet", b =>
                 {
                     b.Property<int>("Id")
@@ -395,6 +407,14 @@ namespace MinhasFinancas.Infra.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Creation_Date");
+
+                    b.Property<DateTime>("LastEdtion")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Last_Edition");
+
                     b.Property<decimal>("TotalValue")
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("Total_Value");
@@ -403,6 +423,10 @@ namespace MinhasFinancas.Infra.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)")
                         .HasColumnName("User_Id");
+
+                    b.Property<bool>("isDeleted")
+                        .HasColumnType("bit")
+                        .HasColumnName("Is_Deleted");
 
                     b.HasKey("Id");
 
@@ -422,7 +446,7 @@ namespace MinhasFinancas.Infra.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("MinhasFinancas.Domain.Entities.User", null)
+                    b.HasOne("MinhasFinancas.Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -431,7 +455,7 @@ namespace MinhasFinancas.Infra.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("MinhasFinancas.Domain.Entities.User", null)
+                    b.HasOne("MinhasFinancas.Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -446,7 +470,7 @@ namespace MinhasFinancas.Infra.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MinhasFinancas.Domain.Entities.User", null)
+                    b.HasOne("MinhasFinancas.Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -455,16 +479,25 @@ namespace MinhasFinancas.Infra.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("MinhasFinancas.Domain.Entities.User", null)
+                    b.HasOne("MinhasFinancas.Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("MinhasFinancas.Domain.Entities.ApplicationUser", b =>
+                {
+                    b.HasOne("MinhasFinancas.Domain.Entities.Wallet", "Wallet")
+                        .WithMany()
+                        .HasForeignKey("WalletId");
+
+                    b.Navigation("Wallet");
+                });
+
             modelBuilder.Entity("MinhasFinancas.Domain.Entities.Category", b =>
                 {
-                    b.HasOne("MinhasFinancas.Domain.Entities.User", "User")
+                    b.HasOne("MinhasFinancas.Domain.Entities.ApplicationUser", "User")
                         .WithMany("Categories")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -483,7 +516,7 @@ namespace MinhasFinancas.Infra.Data.Migrations
                         .WithMany("Movements")
                         .HasForeignKey("PaymentMethodId");
 
-                    b.HasOne("MinhasFinancas.Domain.Entities.User", "User")
+                    b.HasOne("MinhasFinancas.Domain.Entities.ApplicationUser", "User")
                         .WithMany("Movements")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -507,24 +540,22 @@ namespace MinhasFinancas.Infra.Data.Migrations
                     b.Navigation("Wallet");
                 });
 
-            modelBuilder.Entity("MinhasFinancas.Domain.Entities.User", b =>
-                {
-                    b.HasOne("MinhasFinancas.Domain.Entities.Wallet", "Wallet")
-                        .WithMany()
-                        .HasForeignKey("WalletId");
-
-                    b.Navigation("Wallet");
-                });
-
             modelBuilder.Entity("MinhasFinancas.Domain.Entities.Wallet", b =>
                 {
-                    b.HasOne("MinhasFinancas.Domain.Entities.User", "User")
+                    b.HasOne("MinhasFinancas.Domain.Entities.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MinhasFinancas.Domain.Entities.ApplicationUser", b =>
+                {
+                    b.Navigation("Categories");
+
+                    b.Navigation("Movements");
                 });
 
             modelBuilder.Entity("MinhasFinancas.Domain.Entities.Category", b =>
@@ -534,13 +565,6 @@ namespace MinhasFinancas.Infra.Data.Migrations
 
             modelBuilder.Entity("MinhasFinancas.Domain.Entities.PaymentMethod", b =>
                 {
-                    b.Navigation("Movements");
-                });
-
-            modelBuilder.Entity("MinhasFinancas.Domain.Entities.User", b =>
-                {
-                    b.Navigation("Categories");
-
                     b.Navigation("Movements");
                 });
 

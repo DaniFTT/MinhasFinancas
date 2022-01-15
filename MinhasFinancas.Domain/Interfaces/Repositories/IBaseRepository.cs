@@ -6,7 +6,7 @@ namespace MinhasFinancas.Domain.Interfaces.Repositories
     {
         Task Add(T Object);
         Task Update(T Object);
-        Task Delete(int Id);
+        Task Delete(T Object);
         Task<T?> GetById(int Id);
         Task<IEnumerable<T>> List();
     }

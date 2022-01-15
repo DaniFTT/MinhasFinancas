@@ -15,7 +15,7 @@ namespace MinhasFinancas.Infra.Data.Repository
             _optionsBuilder = new DbContextOptions<Context>();
         }
 
-        public async Task Add(T Object)
+        public virtual async Task Add(T Object)
         {
             using (var data = new Context(_optionsBuilder))
             {
@@ -23,7 +23,7 @@ namespace MinhasFinancas.Infra.Data.Repository
                 await data.SaveChangesAsync();
             }
         }
-        public async Task Update(T Object)
+        public virtual async Task Update(T Object)
         {
             using (var data = new Context(_optionsBuilder))
             {
@@ -32,11 +32,10 @@ namespace MinhasFinancas.Infra.Data.Repository
             }
         }
 
-        public async Task Delete(int Id)
+        public virtual async Task Delete(T obj)
         {
             using (var data = new Context(_optionsBuilder))
             {
-                var obj = await GetById(Id);
                 if (obj != null)
                 {
                     data.Set<T>().Remove(obj);
@@ -45,7 +44,7 @@ namespace MinhasFinancas.Infra.Data.Repository
             }
         }
 
-        public async Task<T?> GetById(int Id)
+        public virtual async Task<T?> GetById(int Id)
         {
             using (var data = new Context(_optionsBuilder))
             {
@@ -53,7 +52,7 @@ namespace MinhasFinancas.Infra.Data.Repository
             }
         }
 
-        public async Task<IEnumerable<T>> List()
+        public virtual async Task<IEnumerable<T>> List()
         {
             using (var data = new Context(_optionsBuilder))
             {

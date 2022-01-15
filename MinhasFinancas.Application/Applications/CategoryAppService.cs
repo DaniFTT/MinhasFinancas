@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using MinhasFinancas.Application.Interfaces;
 using MinhasFinancas.Application.ViewModels;
+using MinhasFinancas.Application.ViewModels.Category;
 using MinhasFinancas.Domain.Entities;
 using MinhasFinancas.Domain.Interfaces.Services;
 using MinhasFinancas.Domain.Validators;
@@ -24,39 +26,64 @@ namespace MinhasFinancas.Application.Applications
             _categoryService = categoryService;
         }
 
-        public async Task Add(CategoryViewModel Object)
+        public async Task<IActionResult> Add(CreateUpdateCategoryViewModel categoryViewModel)
         {
-            await _categoryService.Add<CategoryValidator>(_mapper.Map<Category>(Object));
+            var cat = new Category()
+            {
+                Name = categoryViewModel.Name,
+                Type = categoryViewModel.Type,
+            };
+            return new ObjectResult(await _categoryService.Add<CategoryValidator>(cat));
         }
 
-        public async Task Update(CategoryViewModel Object)
+        public async Task<IActionResult> Update(CreateUpdateCategoryViewModel categoryViewModel)
         {
-            await _categoryService.Update<CategoryValidator>(_mapper.Map<Category>(Object));
+            var cat = await _categoryService.GetById(categoryViewModel.Id);
+            if(cat == null)
+                throw new Exception("Categoria não encontrada");
+            
+            cat.Name = categoryViewModel.Name;
+
+            return new ObjectResult(await _categoryService.Update<CategoryValidator>(cat));       
         }
 
-        public async Task Delete(int Id)
+        public async Task<IActionResult> Delete(int Id)
         {
-            await _categoryService.Delete(Id);
+            var cat = await _categoryService.GetById(Id);
+            if (cat == null)
+                throw new Exception("Categoria não encontrada");
+
+            await _categoryService.Delete(cat);
+
+            return new ObjectResult($"Categoria {cat?.Name} excluida com sucesso!");
         }
 
-        public async Task<CategoryViewModel> GetById(int Id)
+        public async Task<CategoryViewModel?> GetById(int Id)
         {
-            return _mapper.Map<CategoryViewModel>(await _categoryService.GetById(Id));
+            var categoria = await _categoryService.GetById(Id);
+            if (categoria == null)
+                throw new Exception("Categoria não encontrada");      
+
+            return new CategoryViewModel(categoria);
         }
 
-        public async Task<IEnumerable<CategoryViewModel>> List()
+        public async Task<IEnumerable<CategoryViewModel>> ListUserEntryCategories()
         {
-            return _mapper.Map<IEnumerable<CategoryViewModel>>(await _categoryService.List());
+            var categorias = (await _categoryService.ListUserEntryCategories()).ToList();
+            return new List<CategoryViewModel>(categorias.Select(c => new CategoryViewModel(c)));
         }
 
-        public async Task<IEnumerable<CategoryViewModel>> ListEntryCategories()
+        public async Task<IEnumerable<CategoryViewModel>> ListUserOutputCategories()
         {
-            return _mapper.Map<List<CategoryViewModel>>(await _categoryService.ListEntryCategories());
+            var categorias = (await _categoryService.ListUserOutputCategories()).ToList();
+            return new List<CategoryViewModel>(categorias.Select(c => new CategoryViewModel(c)));
         }
 
-        public async Task<IEnumerable<CategoryViewModel>> ListOutputCategories()
+        public async Task<IEnumerable<CategoryViewModel>> ListUserCategories()
         {
-            return _mapper.Map<List<CategoryViewModel>>(await _categoryService.ListOutputCategories());
+            var categorias = (await _categoryService.ListUserCategories()).ToList();
+            return new List<CategoryViewModel>(categorias.Select(c => new CategoryViewModel(c)));
         }
+
     }
 }

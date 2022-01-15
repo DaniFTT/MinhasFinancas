@@ -7,7 +7,6 @@ using MinhasFinancas.Domain.Interfaces.Repositories;
 using MinhasFinancas.Domain.Interfaces.Services;
 using MinhasFinancas.Domain.Services;
 using MinhasFinancas.Infra.Data.Repository;
-using MinhasFinancas.Infra.Data.Repository.Mock;
 
 namespace MinhasFinancas.Infra.CrossCutting.IoC
 {
@@ -17,34 +16,28 @@ namespace MinhasFinancas.Infra.CrossCutting.IoC
         {
             services.RegisterServices();
             services.RegisterAppServices();
-            if (configuration.GetValue<bool>("MockRepositories"))
-            {
-                services.RegisterMockRepositories();
-            }
-            else
-            {
-                services.RegisterRepositories();
-            }
+            services.RegisterRepositories();       
         }
 
         public static void RegisterRepositories(this IServiceCollection services)
         {
-            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<ICategoryRepository, CategoryRepository>();
-            services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
-            services.AddScoped<IMovementRepository, MovementRepository>();
-            services.AddScoped<IWalletRepository, WalletRepository>();
+            services.AddSingleton(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddSingleton<IPaymentMethodRepository, PaymentMethodRepository>();
+            services.AddSingleton<IMovementRepository, MovementRepository>();
+            services.AddSingleton<IWalletRepository, WalletRepository>();
+            services.AddTransient<IRefreshTokenRepository, RefreshTokenRepository>();
         }
 
         public static void RegisterServices(this IServiceCollection services)
         {
-            services.AddScoped(typeof(IBaseService<>), typeof(BaseService<>));
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<ICategoryService, CategoryService>();
-            services.AddScoped<IPaymentMethodService, PaymentMethodService>();
-            services.AddScoped<IMovementService, MovementService>();
-            services.AddScoped<IWalletService, WalletService>();
+            services.AddSingleton(typeof(IBaseService<>), typeof(BaseService<>));
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<ICategoryService, CategoryService>();
+            services.AddSingleton<IPaymentMethodService, PaymentMethodService>();
+            services.AddSingleton<IMovementService, MovementService>();
+            services.AddSingleton<IWalletService, WalletService>();
         }
 
         public static void RegisterAppServices(this IServiceCollection services)
@@ -53,11 +46,6 @@ namespace MinhasFinancas.Infra.CrossCutting.IoC
             services.AddTransient<ICategoryAppService, CategoryAppService>();
 
             services.AddAutoMapper(typeof(MappingProfile));
-        }
-
-        public static void RegisterMockRepositories(this IServiceCollection services)
-        {
-            services.AddScoped<ICategoryRepository, MockCategoryRepository>();
         }
     }
 }

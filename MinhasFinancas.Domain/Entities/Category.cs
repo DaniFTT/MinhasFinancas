@@ -21,10 +21,10 @@ namespace MinhasFinancas.Domain.Entities
         public bool Type { get; set; }
 
         [Required()]
-        [ForeignKey("User")]
+        [ForeignKey("ApplicationUser")]
         [Column("User_Id")]
         public string? UserId { get; set; }
-        public ApplicationUser? User { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
 
         public ICollection<Movement>? Movements { get; set; }
 
@@ -38,7 +38,7 @@ namespace MinhasFinancas.Domain.Entities
             Type = category.Type;
             CreationDate = DateTime.Now;
             LastEdtion = DateTime.Now;
-            User = new ApplicationUser();
+            ApplicationUser = new ApplicationUser();
             Movements = new List<Movement>();
         }
 
@@ -49,7 +49,7 @@ namespace MinhasFinancas.Domain.Entities
             Type = type;
             CreationDate = DateTime.Now;
             LastEdtion = DateTime.Now;
-            User = new ApplicationUser();
+            ApplicationUser = new ApplicationUser();
             UserId = id.ToString();
             Movements = new List<Movement>();
         }

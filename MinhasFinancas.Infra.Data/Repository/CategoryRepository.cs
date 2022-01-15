@@ -13,11 +13,27 @@ namespace MinhasFinancas.Infra.Data.Repository
             _optionsBuilder = new DbContextOptions<Context>();
         }
 
-        public async Task<IEnumerable<Category>> ListCategoryByType(bool type)
+        public async Task<Category?> GetById(int Id, string? UserId)
         {
             using (var data = new Context(_optionsBuilder))
             {
-                return await data.Set<Category>().AsNoTracking().Where(c => c.Type == type).ToListAsync();
+                return await data.Set<Category>().Where(c => c.UserId == UserId && c.Id == Id).FirstOrDefaultAsync();
+            }
+        }
+
+        public async Task<IEnumerable<Category>> ListUserCategories(string? UserId)
+        {
+            using (var data = new Context(_optionsBuilder))
+            {
+                return await data.Set<Category>().AsNoTracking().Where(c => c.UserId == UserId).ToListAsync();
+            }
+        }
+
+        public async Task<IEnumerable<Category>> ListUserCategoryByType(bool type, string? UserId)
+        {
+            using (var data = new Context(_optionsBuilder))
+            {
+                return await data.Set<Category>().AsNoTracking().Where(c => c.Type == type && c.UserId == UserId).ToListAsync();
             }
         }
     }

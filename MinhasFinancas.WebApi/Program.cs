@@ -5,6 +5,7 @@ using MinhasFinancas.Infra.CrossCutting.IoC;
 using MinhasFinancas.Infra.Data.Configurations;
 using MinhasFinancas.Infra.CrossCutting.Swagger;
 using MinhasFinancas.Infra.CrossCutting.Auth.Services;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,8 +14,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<Context>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<Context>();
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => {
+    options.SignIn.RequireConfirmedAccount = true;
+    options.User.RequireUniqueEmail = true;
+    })
+    .AddEntityFrameworkStores<Context>()
+    .AddTokenProvider<DataProtectorTokenProvider<ApplicationUser>>(TokenOptions.DefaultProvider);
+
 
 //IoC
 NativeInjector.Register(builder.Services, builder.Configuration);
@@ -25,7 +31,9 @@ AuthenticationService.AddAuthentication(builder.Services, builder.Configuration)
 //Swagger
 SwaggerSetup.AddSwaggerConfiguration(builder.Services);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson(options => {
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+    });
 builder.Services.AddEndpointsApiExplorer();
 
 var app = builder.Build();

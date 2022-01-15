@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using MinhasFinancas.Domain.Entities;
 
 namespace MinhasFinancas.Domain.Interfaces.Services
@@ -7,7 +8,7 @@ namespace MinhasFinancas.Domain.Interfaces.Services
     {
         Task<T> Add<TValidator>(T obj) where TValidator : AbstractValidator<T>;
         Task<T> Update<TValidator>(T obj) where TValidator : AbstractValidator<T>;
-        Task Delete(int id);
+        Task Delete(T obj);
         Task<T?> GetById(int id);
         Task<IEnumerable<T>> List();
     }

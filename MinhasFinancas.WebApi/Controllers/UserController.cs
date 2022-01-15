@@ -6,6 +6,7 @@ using MinhasFinancas.Application.Interfaces;
 using MinhasFinancas.Application.ViewModels;
 using MinhasFinancas.Application.ViewModels.User;
 using MinhasFinancas.Domain.Entities;
+using System.Security.Claims;
 
 namespace MinhasFinancas.WebApi.Controllers
 {
@@ -25,7 +26,7 @@ namespace MinhasFinancas.WebApi.Controllers
         public async Task<IActionResult> Login([FromBody] LoginViewModel login)
         {
             if(ModelState.IsValid)
-                return await _userAppService.Login(login);
+                return Ok(await _userAppService.Login(login));
 
             return BadRequest("Tentativa de Login Invalida");
         }
@@ -36,9 +37,30 @@ namespace MinhasFinancas.WebApi.Controllers
         public async Task<IActionResult> Register([FromBody] RegisterViewModel register)
         {
             if (ModelState.IsValid)
-                return await _userAppService.Register(register);
+                return Ok(await _userAppService.Register(register));
 
             return BadRequest("Tentativa de Registro Invalida");
         }
+
+        [Authorize]
+        [Produces("application/json")]
+        [HttpPost("RefreshToken")]
+        public async Task<IActionResult> RefreshToken([FromBody] TokenRequestViewModel tokenRequest)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _userAppService.RefreshToken(tokenRequest);
+
+                if (result == null)
+                {
+                    return BadRequest("Invalid tokens");
+                }
+
+                return Ok(result);
+            }
+
+            return BadRequest("Invalid Paylod");
+          
+        }     
     }
 }
