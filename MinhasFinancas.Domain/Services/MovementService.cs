@@ -12,9 +12,9 @@ namespace MinhasFinancas.Domain.Services
             _movementRepository = movementRepository;
         }
 
-        public override async Task<Movement> Add<TValidator>(Movement obj)
+        public override async Task<Movement> Add(Movement obj)
         {
-            return await base.Add<TValidator>(obj);
+            return await base.Add(obj);
         }
     }
 }

@@ -9,22 +9,23 @@ namespace MinhasFinancas.Domain.Services
     public class CategoryService : BaseService<Category>, ICategoryService
     {
         private readonly ICategoryRepository _categoryRepository;
-        private readonly IUserService _userService;
-        public CategoryService(IBaseRepository<Category> baseRepository, ICategoryRepository categoryRepository, IUserService userService) : base(baseRepository)
+        private readonly IAuthenticationService _userService;
+        public CategoryService(IBaseRepository<Category> baseRepository, ICategoryRepository categoryRepository, IAuthenticationService userService) : base(baseRepository)
         {
             _categoryRepository = categoryRepository;
             _userService = userService;
         }
-        public override Task<Category> Add<TValidator>(Category obj)
+        public override Task<Category> Add(Category obj)
         {
             obj.UserId = _userService.GetIdLoggedUser();
-            return base.Add<TValidator>(obj);
+
+            return base.Add(obj);
         }
 
-        public override Task<Category> Update<TValidator>(Category obj)
+        public override Task<Category> Update(Category obj)
         {
             // Logica para atualizar os movimentos que tem relação com categoria
-            return base.Update<TValidator>(obj);
+            return base.Update(obj);
         }
         public override Task Delete(Category obj)
         {

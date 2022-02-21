@@ -17,7 +17,7 @@ using System.Text;
 
 namespace MinhasFinancas.Domain.Services
 {
-    public class UserService : IUserService
+    public class AuthenticationService : IAuthenticationService
     {
         private readonly IUserRepository _userRepository;
         private readonly IRefreshTokenRepository _refreshTokenRepository;
@@ -27,7 +27,7 @@ namespace MinhasFinancas.Domain.Services
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly TokenValidationParameters _tokenValidationParams;
 
-        public UserService(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor, IRefreshTokenRepository refreshTokenRepository, TokenValidationParameters tokenValidationParams)
+        public AuthenticationService(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor, IRefreshTokenRepository refreshTokenRepository, TokenValidationParameters tokenValidationParams)
         {
             _userRepository = userRepository;
             _signInManager = signInManager;

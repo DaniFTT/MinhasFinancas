@@ -33,7 +33,7 @@ namespace MinhasFinancas.Infra.CrossCutting.IoC
         public static void RegisterServices(this IServiceCollection services)
         {
             services.AddSingleton(typeof(IBaseService<>), typeof(BaseService<>));
-            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IAuthenticationService, AuthenticationService>();
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddSingleton<IPaymentMethodService, PaymentMethodService>();
             services.AddSingleton<IMovementService, MovementService>();
@@ -42,7 +42,7 @@ namespace MinhasFinancas.Infra.CrossCutting.IoC
 
         public static void RegisterAppServices(this IServiceCollection services)
         {
-            services.AddTransient<IUserAppService, UserAppService>();
+            services.AddTransient<AuthenticationAppService, AuthenticationAppService>();
             services.AddTransient<ICategoryAppService, CategoryAppService>();
 
             services.AddAutoMapper(typeof(MappingProfile));

@@ -12,9 +12,9 @@ namespace MinhasFinancas.Domain.Services
             _paymentMethodRepository = paymentMethodRepository;
         }
 
-        public override Task<PaymentMethod> Add<TValidator>(PaymentMethod obj)
+        public override Task<PaymentMethod> Add(PaymentMethod obj)
         {
-            return base.Add<TValidator>(obj);
+            return base.Add(obj);
         }
     }
 }

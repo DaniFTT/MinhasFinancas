@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MinhasFinancas.Application.Interfaces
 {
-    public interface IUserAppService
+    public interface AuthenticationAppService
     {
         Task<IActionResult> Login(LoginViewModel login);
         Task<IActionResult> Register(RegisterViewModel register);

@@ -12,9 +12,9 @@ namespace MinhasFinancas.Domain.Services
             _walletRepository = walletRepository;
         }
 
-        public override async Task<Wallet> Add<TValidator>(Wallet obj)
+        public override async Task<Wallet> Add(Wallet obj)
         {
-            return await base.Add<TValidator>(obj);
+            return await base.Add(obj);
         }
     }
 }

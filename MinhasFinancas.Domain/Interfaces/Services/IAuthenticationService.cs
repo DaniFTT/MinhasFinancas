@@ -4,7 +4,7 @@ using MinhasFinancas.Domain.Entities;
 
 namespace MinhasFinancas.Domain.Interfaces.Services
 {
-    public interface IUserService
+    public interface IAuthenticationService
     {
         Task<IActionResult> Login(string email, string password);
         Task<IActionResult> Register(string email, string password, string fullName, int age);

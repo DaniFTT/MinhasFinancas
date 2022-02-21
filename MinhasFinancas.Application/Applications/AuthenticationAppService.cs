@@ -14,12 +14,12 @@ using System.Threading.Tasks;
 
 namespace MinhasFinancas.Application.Applications
 {
-    public class UserAppService : IUserAppService
+    public class AuthenticationAppService : Interfaces.AuthenticationAppService
     {
         protected readonly IMapper _mapper;
-        protected readonly IUserService _userService;
+        protected readonly IAuthenticationService _userService;
 
-        public UserAppService(IMapper mapper, IUserService userService)
+        public AuthenticationAppService(IMapper mapper, IAuthenticationService userService)
         {
             _mapper = mapper;
             _userService = userService;
