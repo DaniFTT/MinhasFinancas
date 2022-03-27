@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MinhasFinancas.Application.ViewModels.User;
-using MinhasFinancas.Infra.CrossCutting.AuthConfig.Models;
+using MinhasFinancas.Infra.AuthConfig.Models;
 
 namespace MinhasFinancas.Application.Interfaces
 {

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MinhasFinancas.Application.Interfaces;
 using MinhasFinancas.Application.ViewModels.User;
 using MinhasFinancas.Domain.Interfaces.Services;
-using MinhasFinancas.Infra.CrossCutting.AuthConfig.Models;
+using MinhasFinancas.Infra.AuthConfig.Models;
 
 namespace MinhasFinancas.Application.Applications
 {

@@ -7,7 +7,7 @@ using MinhasFinancas.Domain.Entities;
 using MinhasFinancas.Domain.Helpers;
 using MinhasFinancas.Domain.Interfaces.Repositories;
 using MinhasFinancas.Domain.Interfaces.Services;
-using MinhasFinancas.Infra.CrossCutting.AuthConfig.Models;
+using MinhasFinancas.Infra.AuthConfig.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;

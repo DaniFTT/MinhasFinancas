@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace MinhasFinancas.Infra.CrossCutting.AuthConfig.Services
+namespace MinhasFinancas.Infra.AuthConfig.Services
 {
     public static class AuthenticationService
     {

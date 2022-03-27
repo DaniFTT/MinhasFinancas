@@ -1,4 +1,4 @@
-﻿namespace MinhasFinancas.Infra.CrossCutting.AuthConfig.Models
+﻿namespace MinhasFinancas.Infra.AuthConfig.Models
 {
     public static class TokenSettings
     {

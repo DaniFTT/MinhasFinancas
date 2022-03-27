@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MinhasFinancas.Domain.Entities;
-using MinhasFinancas.Infra.CrossCutting.AuthConfig.Services;
-using MinhasFinancas.Infra.CrossCutting.IoC;
-using MinhasFinancas.Infra.CrossCutting.Swagger;
+using MinhasFinancas.Infra.AuthConfig.Services;
 using MinhasFinancas.Infra.Data.Configurations;
+using MinhasFinancas.Infra.IoC;
+using MinhasFinancas.Infra.Swagger;
 
 var builder = WebApplication.CreateBuilder(args);
 

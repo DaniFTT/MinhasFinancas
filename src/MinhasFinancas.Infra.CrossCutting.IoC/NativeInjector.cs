@@ -8,7 +8,7 @@ using MinhasFinancas.Domain.Interfaces.Services;
 using MinhasFinancas.Domain.Services;
 using MinhasFinancas.Infra.Data.Repository;
 
-namespace MinhasFinancas.Infra.CrossCutting.IoC
+namespace MinhasFinancas.Infra.IoC
 {
     public static class NativeInjector
     {

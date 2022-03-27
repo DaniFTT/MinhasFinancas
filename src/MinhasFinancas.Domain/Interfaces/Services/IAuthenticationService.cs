@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MinhasFinancas.Domain.Entities;
-using MinhasFinancas.Infra.CrossCutting.AuthConfig.Models;
+using MinhasFinancas.Infra.AuthConfig.Models;
 
 namespace MinhasFinancas.Domain.Interfaces.Services
 {

@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
-namespace MinhasFinancas.Infra.CrossCutting.Swagger
+namespace MinhasFinancas.Infra.Swagger
 {
     public static class SwaggerSetup
     {
