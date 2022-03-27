@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MinhasFinancas.Domain\MinhasFinancas.Domain.csproj" />
-    <ProjectReference Include="..\MinhasFinancas.Infra.CrossCutting.AuthConfig\MinhasFinancas.Infra.CrossCutting.AuthConfig.csproj" />
+    <ProjectReference Include="..\MinhasFinancas.Infra.CrossCutting.AuthConfig\MinhasFinancas.Infra.AuthConfig.csproj" />
   </ItemGroup>
 
 </Project>
