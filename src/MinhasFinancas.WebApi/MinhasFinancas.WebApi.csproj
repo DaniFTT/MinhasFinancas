@@ -21,8 +21,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MinhasFinancas.Application\MinhasFinancas.Application.csproj" />
-    <ProjectReference Include="..\MinhasFinancas.Infra.CrossCutting.IoC\MinhasFinancas.Infra.IoC.csproj" />
-    <ProjectReference Include="..\MinhasFinancas.Infra.CrossCutting.Swagger\MinhasFinancas.Infra.Swagger.csproj" />
+    <ProjectReference Include="..\MinhasFinancas.Infra.AuthConfig\MinhasFinancas.Infra.AuthConfig.csproj" />
+    <ProjectReference Include="..\MinhasFinancas.Infra.IoC\MinhasFinancas.Infra.IoC.csproj" />
+    <ProjectReference Include="..\MinhasFinancas.Infra.Swagger\MinhasFinancas.Infra.Swagger.csproj" />
     <ProjectReference Include="..\MinhasFinancas.Infra.Data\MinhasFinancas.Infra.Data.csproj" />
   </ItemGroup>
 

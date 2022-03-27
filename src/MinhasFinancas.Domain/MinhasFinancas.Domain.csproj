@@ -34,6 +34,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Auth\MinhasFinancas.Infra.CrossCutting.AuthConfig.csproj" />
+    <ProjectReference Include="..\MinhasFinancas.Infra.AuthConfig\MinhasFinancas.Infra.AuthConfig.csproj" />
     <ProjectReference Include="..\MinhasFinancas.Infra.CrossCutting.AuthConfig\MinhasFinancas.Infra.AuthConfig.csproj" />
   </ItemGroup>
 

@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MinhasFinancas.Domain\MinhasFinancas.Domain.csproj" />
+    <ProjectReference Include="..\MinhasFinancas.Infra.AuthConfig\MinhasFinancas.Infra.AuthConfig.csproj" />
     <ProjectReference Include="..\MinhasFinancas.Infra.CrossCutting.AuthConfig\MinhasFinancas.Infra.AuthConfig.csproj" />
   </ItemGroup>
 

@@ -25,11 +25,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinhasFinancas.Infra.Data",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5 -Tests", "5 -Tests", "{4E46118B-0FF9-43B9-A95D-4C1247F5FDD9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinhasFinancas.Infra.Swagger", "src\MinhasFinancas.Infra.CrossCutting.Swagger\MinhasFinancas.Infra.Swagger.csproj", "{7309885C-062E-42A5-950F-85DB01AA930A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinhasFinancas.Infra.Swagger", "src\MinhasFinancas.Infra.Swagger\MinhasFinancas.Infra.Swagger.csproj", "{7309885C-062E-42A5-950F-85DB01AA930A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinhasFinancas.Infra.AuthConfig", "src\MinhasFinancas.Infra.CrossCutting.AuthConfig\MinhasFinancas.Infra.AuthConfig.csproj", "{A672BC76-1698-4A87-A11C-3BEC7363084E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinhasFinancas.Infra.AuthConfig", "src\MinhasFinancas.Infra.AuthConfig\MinhasFinancas.Infra.AuthConfig.csproj", "{A672BC76-1698-4A87-A11C-3BEC7363084E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinhasFinancas.Infra.IoC", "src\MinhasFinancas.Infra.CrossCutting.IoC\MinhasFinancas.Infra.IoC.csproj", "{6DCCDDE5-A80E-4336-A02B-2CA45E8B9495}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinhasFinancas.Infra.IoC", "src\MinhasFinancas.Infra.IoC\MinhasFinancas.Infra.IoC.csproj", "{6DCCDDE5-A80E-4336-A02B-2CA45E8B9495}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
