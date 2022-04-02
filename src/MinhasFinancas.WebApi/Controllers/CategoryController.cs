@@ -64,7 +64,7 @@ namespace MinhasFinancas.WebApi.Controllers
 
         [Produces("application/json")]
         [HttpDelete("DeleteCategory")]
-        public async Task<IActionResult> DeleteCategory([FromQuery] int Id)
+        public async Task<IActionResult> DeleteCategory([FromQuery] Guid Id)
         {
             try
             {
@@ -78,7 +78,7 @@ namespace MinhasFinancas.WebApi.Controllers
 
         [Produces("application/json")]
         [HttpGet("GetById")]
-        public async Task<IActionResult> GetById(int Id)
+        public async Task<IActionResult> GetById(Guid Id)
         {
             try
             {

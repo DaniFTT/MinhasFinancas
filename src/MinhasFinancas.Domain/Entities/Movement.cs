@@ -7,9 +7,8 @@ namespace MinhasFinancas.Domain.Entities
     public class Movement : BaseEntity
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("Movement_Id")]
-        public override int Id { get; protected set; }
+        public override Guid Id { get; protected set; }
 
         [Required()]
         [MaxLength(200)]
@@ -26,12 +25,12 @@ namespace MinhasFinancas.Domain.Entities
 
         [ForeignKey("PaymentMethod")]
         [Column("Payment_Method_Id")]
-        public int? PaymentMethodId { get; set; }
+        public Guid? PaymentMethodId { get; set; }
         public PaymentMethod? PaymentMethod { get; set; }
 
         [ForeignKey("Category")]
         [Column("Category_Id")]
-        public int? CategoryId { get; set; }
+        public Guid? CategoryId { get; set; }
         public Category? Category { get; set; }
 
         [Required()]
@@ -43,5 +42,16 @@ namespace MinhasFinancas.Domain.Entities
         [Column("User_Id")]
         public string? UserId { get; set; }
         public ApplicationUser? User { get; set; }
+
+        public Movement(string? description, bool type, decimal value, Guid? paymentMethodId, Guid? categoryId, DateTime dateOfMovement, string? userId)
+        {
+            Description = description;
+            Type = type;
+            Value = value;
+            PaymentMethodId = paymentMethodId;
+            CategoryId = categoryId;
+            DateOfMovement = dateOfMovement;
+            UserId = userId;
+        }
     }
 }

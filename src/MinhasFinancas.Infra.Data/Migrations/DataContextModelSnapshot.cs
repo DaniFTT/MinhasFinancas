@@ -221,10 +221,6 @@ namespace MinhasFinancas.Infra.Data.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<int?>("WalletId")
-                        .HasColumnType("int")
-                        .HasColumnName("Wallet_Id");
-
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -235,23 +231,23 @@ namespace MinhasFinancas.Infra.Data.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.HasIndex("WalletId");
-
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("MinhasFinancas.Domain.Entities.Category", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("Category_Id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2")
                         .HasColumnName("Creation_Date");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasColumnName("Is_Deleted");
 
                     b.Property<DateTime>("LastEdtion")
                         .HasColumnType("datetime2")
@@ -272,10 +268,6 @@ namespace MinhasFinancas.Infra.Data.Migrations
                         .HasColumnType("nvarchar(450)")
                         .HasColumnName("User_Id");
 
-                    b.Property<bool>("isDeleted")
-                        .HasColumnType("bit")
-                        .HasColumnName("Is_Deleted");
-
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
@@ -285,15 +277,13 @@ namespace MinhasFinancas.Infra.Data.Migrations
 
             modelBuilder.Entity("MinhasFinancas.Domain.Entities.Movement", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("Movement_Id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int?>("CategoryId")
-                        .HasColumnType("int")
+                    b.Property<Guid?>("CategoryId")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("Category_Id");
 
                     b.Property<DateTime>("CreationDate")
@@ -310,12 +300,16 @@ namespace MinhasFinancas.Infra.Data.Migrations
                         .HasColumnType("nvarchar(200)")
                         .HasColumnName("Description");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasColumnName("Is_Deleted");
+
                     b.Property<DateTime>("LastEdtion")
                         .HasColumnType("datetime2")
                         .HasColumnName("Last_Edition");
 
-                    b.Property<int?>("PaymentMethodId")
-                        .HasColumnType("int")
+                    b.Property<Guid?>("PaymentMethodId")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("Payment_Method_Id");
 
                     b.Property<bool>("Type")
@@ -331,10 +325,6 @@ namespace MinhasFinancas.Infra.Data.Migrations
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("Value");
 
-                    b.Property<bool>("isDeleted")
-                        .HasColumnType("bit")
-                        .HasColumnName("Is_Deleted");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
@@ -348,16 +338,18 @@ namespace MinhasFinancas.Infra.Data.Migrations
 
             modelBuilder.Entity("MinhasFinancas.Domain.Entities.PaymentMethod", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("Payment_Method_Id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2")
                         .HasColumnName("Creation_Date");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasColumnName("Is_Deleted");
 
                     b.Property<DateTime>("LastEdtion")
                         .HasColumnType("datetime2")
@@ -373,60 +365,20 @@ namespace MinhasFinancas.Infra.Data.Migrations
                         .HasColumnType("int")
                         .HasColumnName("Payment_Type");
 
-                    b.Property<decimal>("Value")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("Value");
-
-                    b.Property<int>("WalletId")
-                        .HasColumnType("int")
-                        .HasColumnName("Wallet_Id");
-
-                    b.Property<bool>("isDeleted")
-                        .HasColumnType("bit")
-                        .HasColumnName("Is_Deleted");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("WalletId");
-
-                    b.ToTable("Payment_Method");
-                });
-
-            modelBuilder.Entity("MinhasFinancas.Domain.Entities.Wallet", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("Wallet_Id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CreationDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Creation_Date");
-
-                    b.Property<DateTime>("LastEdtion")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Last_Edition");
-
-                    b.Property<decimal>("TotalValue")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("Total_Value");
-
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)")
                         .HasColumnName("User_Id");
 
-                    b.Property<bool>("isDeleted")
-                        .HasColumnType("bit")
-                        .HasColumnName("Is_Deleted");
+                    b.Property<decimal>("Value")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("Value");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Wallet");
+                    b.ToTable("Payment_Method");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -480,15 +432,6 @@ namespace MinhasFinancas.Infra.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MinhasFinancas.Domain.Entities.ApplicationUser", b =>
-                {
-                    b.HasOne("MinhasFinancas.Domain.Entities.Wallet", "Wallet")
-                        .WithMany()
-                        .HasForeignKey("WalletId");
-
-                    b.Navigation("Wallet");
-                });
-
             modelBuilder.Entity("MinhasFinancas.Domain.Entities.Category", b =>
                 {
                     b.HasOne("MinhasFinancas.Domain.Entities.ApplicationUser", "ApplicationUser")
@@ -525,19 +468,8 @@ namespace MinhasFinancas.Infra.Data.Migrations
 
             modelBuilder.Entity("MinhasFinancas.Domain.Entities.PaymentMethod", b =>
                 {
-                    b.HasOne("MinhasFinancas.Domain.Entities.Wallet", "Wallet")
-                        .WithMany("PaymentMethods")
-                        .HasForeignKey("WalletId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Wallet");
-                });
-
-            modelBuilder.Entity("MinhasFinancas.Domain.Entities.Wallet", b =>
-                {
                     b.HasOne("MinhasFinancas.Domain.Entities.ApplicationUser", "User")
-                        .WithMany()
+                        .WithMany("PaymentMethods")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -550,6 +482,8 @@ namespace MinhasFinancas.Infra.Data.Migrations
                     b.Navigation("Categories");
 
                     b.Navigation("Movements");
+
+                    b.Navigation("PaymentMethods");
                 });
 
             modelBuilder.Entity("MinhasFinancas.Domain.Entities.Category", b =>
@@ -560,11 +494,6 @@ namespace MinhasFinancas.Infra.Data.Migrations
             modelBuilder.Entity("MinhasFinancas.Domain.Entities.PaymentMethod", b =>
                 {
                     b.Navigation("Movements");
-                });
-
-            modelBuilder.Entity("MinhasFinancas.Domain.Entities.Wallet", b =>
-                {
-                    b.Navigation("PaymentMethods");
                 });
 #pragma warning restore 612, 618
         }

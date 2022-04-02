@@ -4,10 +4,11 @@ namespace MinhasFinancas.Domain.Interfaces.Services
 {
     public interface IBaseService<T> where T : BaseEntity
     {
-        Task<T> Add(T obj);
-        Task<T> Update(T obj);
-        Task Delete(T obj);
-        Task<T?> GetById(int id);
-        Task<IEnumerable<T>> List();
+        Task<T> AddAsync(T obj);
+        Task<T> UpdateAsync(T obj);
+        Task DeleteAsync(T obj);
+        Task DeleteByIdAsync(Guid id);
+        Task<T?> GetByIdAsync(Guid id);
+        Task<IEnumerable<T>> ListAsync();
     }
 }

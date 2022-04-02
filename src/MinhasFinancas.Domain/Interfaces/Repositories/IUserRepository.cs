@@ -8,7 +8,7 @@ namespace MinhasFinancas.Domain.Interfaces.Repositories
         Task<string> GetUserId(string email);
         Task<ApplicationUser?> GetUserById(string id);
         Task<List<ApplicationUser>> GetUsers(Expression<Func<ApplicationUser, bool>> exUser);
-        Task<ApplicationUser?> GetCurrentUserById();
-        string GetCurrentUserId();
+        //Task<ApplicationUser?> GetCurrentUserById();
+        //string GetCurrentUserId();
     }
 }

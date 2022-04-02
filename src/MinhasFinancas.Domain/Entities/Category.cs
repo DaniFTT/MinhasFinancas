@@ -7,9 +7,8 @@ namespace MinhasFinancas.Domain.Entities
     public class Category : BaseEntity
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("Category_Id")]
-        public override int Id { get; protected set; }
+        public override Guid Id { get; protected set; }
 
         [Required()]
         [MaxLength(100)]
@@ -24,34 +23,17 @@ namespace MinhasFinancas.Domain.Entities
         [ForeignKey("ApplicationUser")]
         [Column("User_Id")]
         public string? UserId { get; set; }
-        public virtual ApplicationUser ApplicationUser { get; set; }
+        public virtual ApplicationUser? ApplicationUser { get; set; }
 
         public ICollection<Movement>? Movements { get; set; }
 
-        public Category()
-        {
-        }
+        public Category() : base() { }
 
-        public Category(Category category)
-        {
-            Name = category.Name;
-            Type = category.Type;
-            CreationDate = DateTime.Now;
-            LastEdtion = DateTime.Now;
-            ApplicationUser = new ApplicationUser();
-            Movements = new List<Movement>();
-        }
-
-        public Category(int id, string name, bool type)
-        {
-            Id = id;
+        public Category(string name, bool type, string? userId)
+        { 
             Name = name;
             Type = type;
-            CreationDate = DateTime.Now;
-            LastEdtion = DateTime.Now;
-            ApplicationUser = new ApplicationUser();
-            UserId = id.ToString();
-            Movements = new List<Movement>();
+            UserId = userId;
         }
     }
 }

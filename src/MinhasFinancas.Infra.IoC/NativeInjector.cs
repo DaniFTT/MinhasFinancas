@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using MinhasFinancas.Application.Applications;
 using MinhasFinancas.Application.Interfaces;
 using MinhasFinancas.Application.Interfaces.Services;
@@ -23,15 +25,13 @@ namespace MinhasFinancas.Infra.IoC
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
             );
 
-            //services.AddDbContext<IdentityDataContext>(options =>
-            //    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
-            //);
-
             services.AddDefaultIdentity<ApplicationUser>()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<DataContext>()
                 .AddDefaultTokenProviders();
 
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddHttpContextAccessor();
             services.RegisterServices();
             services.RegisterApplicationServices();
             services.RegisterRepositories();

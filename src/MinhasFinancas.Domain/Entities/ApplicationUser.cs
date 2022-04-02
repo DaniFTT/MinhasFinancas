@@ -19,9 +19,6 @@ namespace MinhasFinancas.Domain.Entities
 
         public ICollection<Movement>? Movements { get; set; }
 
-        [ForeignKey("Wallet")]
-        [Column("Wallet_Id")]
-        public int? WalletId { get; set; }
-        public Wallet? Wallet { get; set; }
+        public ICollection<PaymentMethod>? PaymentMethods { get; set; }
     }
 }

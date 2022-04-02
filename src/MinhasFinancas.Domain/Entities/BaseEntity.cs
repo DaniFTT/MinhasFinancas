@@ -5,7 +5,7 @@ namespace MinhasFinancas.Domain.Entities
 {
     public abstract class BaseEntity
     {
-        public virtual int Id { get; protected set; }
+        public virtual Guid Id { get; protected set; }
 
         [Required()]
         [Column("Creation_Date")]
@@ -16,6 +16,8 @@ namespace MinhasFinancas.Domain.Entities
         public DateTime LastEdtion { get; set; }
 
         [Column("Is_Deleted")]
-        public bool isDeleted { get; set; }
+        public bool IsDeleted { get; set; }
+
+        public void GenerateId() => Id = Guid.NewGuid();
     }
 }

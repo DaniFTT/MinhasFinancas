@@ -9,8 +9,8 @@ namespace MinhasFinancas.Application.Interfaces
 
         Task<IActionResult> Add(CreateUpdateCategoryViewModel Object);
         Task<IActionResult> Update(CreateUpdateCategoryViewModel Object);
-        Task<IActionResult> Delete(int Id);
-        Task<CategoryViewModel?> GetById(int Id);
+        Task<IActionResult> Delete(Guid Id);
+        Task<CategoryViewModel?> GetById(Guid Id);
         Task<IEnumerable<CategoryViewModel>> ListUserEntryCategories();
         Task<IEnumerable<CategoryViewModel>> ListUserOutputCategories();
         Task<IEnumerable<CategoryViewModel>> ListUserCategories();

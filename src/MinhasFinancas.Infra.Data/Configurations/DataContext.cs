@@ -12,7 +12,6 @@ namespace MinhasFinancas.Infra.Data.Configurations
         public DbSet<Category> Category { get; set; }
         public DbSet<PaymentMethod> PaymentMethod { get; set; }
         public DbSet<Movement> Movement { get; set; }
-        public DbSet<Wallet> Wallet { get; set; }
         public DbSet<ApplicationUser> User { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

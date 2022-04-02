@@ -1,6 +1,8 @@
-﻿using MinhasFinancas.Domain.Entities;
+﻿using Microsoft.AspNetCore.Http;
+using MinhasFinancas.Domain.Entities;
 using MinhasFinancas.Domain.Interfaces.Repositories;
 using MinhasFinancas.Domain.Interfaces.Services;
+using System.Security.Claims;
 
 namespace MinhasFinancas.Domain.Services
 {
@@ -12,26 +14,30 @@ namespace MinhasFinancas.Domain.Services
         {
             _baseRepository = baseRepository;
         }
-        public virtual async Task<T> Add(T obj)
+        public virtual async Task<T> AddAsync(T obj)
         {
             obj.CreationDate = DateTime.Now;
             obj.LastEdtion = DateTime.Now;
-            obj.isDeleted = false;
-            await _baseRepository.Add(obj);
+            obj.IsDeleted = false;
+            obj.GenerateId();
+            await _baseRepository.AddAsync(obj);
             return obj;
         }
 
-        public virtual async Task<T> Update(T obj)
+        public virtual async Task<T> UpdateAsync(T obj)
         {
             obj.LastEdtion = DateTime.Now;
-            obj.isDeleted = false;
-            await _baseRepository.Update(obj);
+            obj.IsDeleted = false;
+            await _baseRepository.UpdateAsync(obj);
             return obj;
         }
-        public virtual async Task<T?> GetById(int id) => await _baseRepository.GetById(id);
+        public virtual async Task DeleteAsync(T obj) => await _baseRepository.DeleteAsync(obj);
 
-        public virtual async Task<IEnumerable<T>> List() => await _baseRepository.List();
+        public virtual async Task DeleteByIdAsync(Guid id) => await _baseRepository.DeleteByIdAsync(id);
 
-        public virtual async Task Delete(T obj) => await _baseRepository.Delete(obj);
+        public virtual async Task<T?> GetByIdAsync(Guid id) => await _baseRepository.GetByIdAsync(id);
+
+        public virtual async Task<IEnumerable<T>> ListAsync() => await _baseRepository.ListAsync();
+
     }
 }

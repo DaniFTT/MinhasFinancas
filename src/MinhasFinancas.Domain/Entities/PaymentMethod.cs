@@ -8,9 +8,8 @@ namespace MinhasFinancas.Domain.Entities
     public class PaymentMethod : BaseEntity
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("Payment_Method_Id")]
-        public override int Id { get; protected set; }
+        public override Guid Id { get; protected set; }
 
         [Required()]
         [MaxLength(100)]
@@ -25,11 +24,20 @@ namespace MinhasFinancas.Domain.Entities
         [Column("Payment_Type")]
         public PaymentType PaymentType { get; set; }
 
-        [ForeignKey("Wallet")]
-        [Column("Wallet_Id")]
-        public int WalletId { get; set; }
-        public Wallet? Wallet { get; set; }
+        [Required()]
+        [ForeignKey("User")]
+        [Column("User_Id")]
+        public string? UserId { get; set; }
+        public ApplicationUser? User { get; set; }
 
         public ICollection<Movement>? Movements { get; set; }
+
+        public PaymentMethod(string? name, decimal value, PaymentType paymentType, string? userId)
+        {
+            Name = name;
+            Value = value;
+            PaymentType = paymentType;
+            UserId = userId;
+        }
     }
 }

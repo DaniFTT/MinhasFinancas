@@ -7,39 +7,38 @@ using MinhasFinancas.Infra.Data.Configurations;
 using System.Runtime.InteropServices;
 using System.Security.Claims;
 
+
 namespace MinhasFinancas.Infra.Data.Repository
 {
     public class BaseRepository<T> : IBaseRepository<T>, IDisposable where T : BaseEntity
     {
         private readonly DbContextOptions<DataContext> _optionsBuilder;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        protected readonly string _currentUserId;
 
-        public BaseRepository()
+        public BaseRepository(IHttpContextAccessor httpContextAccessor)
         {
             _optionsBuilder = new DbContextOptions<DataContext>();
-            _httpContextAccessor = new HttpContextAccessor();
-            _currentUserId = GetCurrentUserId();
+            _httpContextAccessor = httpContextAccessor;
         }
 
-        public virtual async Task Add(T Object)
+        public virtual async Task AddAsync(T obj)
         {
             using (var data = new DataContext(_optionsBuilder))
             {
-                await data.Set<T>().AddAsync(Object);
+                await data.Set<T>().AddAsync(obj);
                 await data.SaveChangesAsync();
             }
         }
-        public virtual async Task Update(T Object)
+        public virtual async Task UpdateAsync(T obj)
         {
             using (var data = new DataContext(_optionsBuilder))
             {
-                data.Set<T>().Update(Object);
+                data.Set<T>().Update(obj);
                 await data.SaveChangesAsync();
             }
         }
 
-        public virtual async Task Delete(T obj)
+        public virtual async Task DeleteAsync(T obj)
         {
             using (var data = new DataContext(_optionsBuilder))
             {
@@ -51,17 +50,30 @@ namespace MinhasFinancas.Infra.Data.Repository
             }
         }
 
-        public virtual async Task<T?> GetById(int Id)
+        public virtual async Task DeleteByIdAsync(Guid id)
+        {
+            using (var data = new DataContext(_optionsBuilder))
+            {
+                var obj = await GetByIdAsync(id);
+                if (obj != null)
+                {
+                    data.Set<T>().Remove(obj);
+                    await data.SaveChangesAsync();
+                }
+            }
+        }
+
+        public virtual async Task<T?> GetByIdAsync(Guid id)
         {
             using (var data = new DataContext(_optionsBuilder))
             {
                 //var queries = Enumerable.Empty<T>().AsQueryable();
                 //queries..Where(x => x.Id == Id);
-                return await data.Set<T>().FindAsync(Id);
+                return await data.Set<T>().FindAsync(id);
             }
         }
 
-        public virtual async Task<IEnumerable<T>> List()
+        public virtual async Task<IEnumerable<T>> ListAsync()
         {
             using (var data = new DataContext(_optionsBuilder))
             {

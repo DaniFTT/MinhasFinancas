@@ -8,29 +8,31 @@ namespace MinhasFinancas.Domain.Services
     public class CategoryService : BaseService<Category>, ICategoryService
     {
         private readonly ICategoryRepository _categoryRepository;
-        public CategoryService(IBaseRepository<Category> baseRepository, ICategoryRepository categoryRepository) : base(baseRepository)
+        public CategoryService(ICategoryRepository categoryRepository) : base(categoryRepository)
         {
             _categoryRepository = categoryRepository;
         }
-        public override Task<Category> Add(Category obj)
+
+        public override Task<Category> AddAsync(Category obj)
         {
-            return base.Add(obj);
+            return base.AddAsync(obj);
         }
 
-        public override Task<Category> Update(Category obj)
+        public override Task<Category> UpdateAsync(Category obj)
         {
             // Logica para atualizar os movimentos que tem relação com categoria
-            return base.Update(obj);
-        }
-        public override Task Delete(Category obj)
-        {
-            // Logica para deletar os movimentos que tem relação com categoria
-            return base.Delete(obj);
+            return base.UpdateAsync(obj);
         }
 
-        public override async Task<Category?> GetById(int id)
+        public override Task DeleteAsync(Category obj)
         {
-            return await _categoryRepository.GetById(id);
+            // Logica para deletar os movimentos que tem relação com categoria
+            return base.DeleteAsync(obj);
+        }
+
+        public override async Task<Category?> GetByIdAsync(Guid id)
+        {
+            return await _categoryRepository.GetByIdAsync(id);
         }
 
         public async Task<IEnumerable<Category>> ListUserEntryCategories()

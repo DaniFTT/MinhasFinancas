@@ -23,34 +23,34 @@ namespace MinhasFinancas.Application.Applications
                 Name = categoryViewModel.Name,
                 Type = categoryViewModel.Type,
             };
-            return new ObjectResult(await _categoryService.Add(cat));
+            return new ObjectResult(await _categoryService.AddAsync(cat));
         }
 
         public async Task<IActionResult> Update(CreateUpdateCategoryViewModel categoryViewModel)
         {
-            var cat = await _categoryService.GetById(categoryViewModel.Id);
+            var cat = await _categoryService.GetByIdAsync(categoryViewModel.Id);
             if (cat == null)
                 throw new Exception("Categoria não encontrada");
 
             cat.Name = categoryViewModel.Name;
 
-            return new ObjectResult(await _categoryService.Update(cat));
+            return new ObjectResult(await _categoryService.UpdateAsync(cat));
         }
 
-        public async Task<IActionResult> Delete(int Id)
+        public async Task<IActionResult> Delete(Guid Id)
         {
-            var cat = await _categoryService.GetById(Id);
+            var cat = await _categoryService.GetByIdAsync(Id);
             if (cat == null)
                 throw new Exception("Categoria não encontrada");
 
-            await _categoryService.Delete(cat);
+            await _categoryService.DeleteAsync(cat);
 
             return new ObjectResult($"Categoria {cat?.Name} excluida com sucesso!");
         }
 
-        public async Task<CategoryViewModel?> GetById(int Id)
+        public async Task<CategoryViewModel?> GetById(Guid Id)
         {
-            var categoria = await _categoryService.GetById(Id);
+            var categoria = await _categoryService.GetByIdAsync(Id);
             if (categoria == null)
                 throw new Exception("Categoria não encontrada");
 
