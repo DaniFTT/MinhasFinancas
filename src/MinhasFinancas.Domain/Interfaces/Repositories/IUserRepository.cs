@@ -6,6 +6,9 @@ namespace MinhasFinancas.Domain.Interfaces.Repositories
     public interface IUserRepository
     {
         Task<string> GetUserId(string email);
-        Task<List<ApplicationUser>> GetUsers(Expression<Func<ApplicationUser, bool>> exNoticia);
+        Task<ApplicationUser?> GetUserById(string id);
+        Task<List<ApplicationUser>> GetUsers(Expression<Func<ApplicationUser, bool>> exUser);
+        Task<ApplicationUser?> GetCurrentUserById();
+        string GetCurrentUserId();
     }
 }

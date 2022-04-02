@@ -7,13 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="10.1.1" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\MinhasFinancas.Domain\MinhasFinancas.Domain.csproj" />
     <ProjectReference Include="..\MinhasFinancas.Infra.Data\MinhasFinancas.Infra.Data.csproj" />
+    <ProjectReference Include="..\MinhasFinancas.Infra.Identity\MinhasFinancas.Infra.Identity.csproj" />
   </ItemGroup>
 
 </Project>

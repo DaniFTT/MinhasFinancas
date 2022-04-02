@@ -1,51 +1,60 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MinhasFinancas.Application;
 using MinhasFinancas.Application.Applications;
 using MinhasFinancas.Application.Interfaces;
+using MinhasFinancas.Application.Interfaces.Services;
+using MinhasFinancas.Domain.Entities;
 using MinhasFinancas.Domain.Interfaces.Repositories;
 using MinhasFinancas.Domain.Interfaces.Services;
 using MinhasFinancas.Domain.Services;
+using MinhasFinancas.Infra.Data.Configurations;
 using MinhasFinancas.Infra.Data.Repository;
+using MinhasFinancas.Infra.Identity.Services;
 
 namespace MinhasFinancas.Infra.IoC
 {
     public static class NativeInjector
     {
-        public static void Register(this IServiceCollection services, IConfiguration configuration)
+        public static void RegisterServices(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddDbContext<DataContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
+            );
+
+            //services.AddDbContext<IdentityDataContext>(options =>
+            //    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
+            //);
+
+            services.AddDefaultIdentity<ApplicationUser>()
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<DataContext>()
+                .AddDefaultTokenProviders();
+
             services.RegisterServices();
-            services.RegisterAppServices();
+            services.RegisterApplicationServices();
             services.RegisterRepositories();
         }
 
         public static void RegisterRepositories(this IServiceCollection services)
         {
-            services.AddSingleton(typeof(IBaseRepository<>), typeof(BaseRepository<>));
-            services.AddTransient<IUserRepository, UserRepository>();
-            services.AddTransient<ICategoryRepository, CategoryRepository>();
-            services.AddSingleton<IPaymentMethodRepository, PaymentMethodRepository>();
-            services.AddSingleton<IMovementRepository, MovementRepository>();
-            services.AddSingleton<IWalletRepository, WalletRepository>();
-            services.AddTransient<IRefreshTokenRepository, RefreshTokenRepository>();
+            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
         }
 
         public static void RegisterServices(this IServiceCollection services)
         {
-            services.AddSingleton(typeof(IBaseService<>), typeof(BaseService<>));
-            services.AddTransient<IAuthenticationService, AuthenticationService>();
-            services.AddTransient<ICategoryService, CategoryService>();
-            services.AddSingleton<IPaymentMethodService, PaymentMethodService>();
-            services.AddSingleton<IMovementService, MovementService>();
-            services.AddSingleton<IWalletService, WalletService>();
+            services.AddScoped(typeof(IBaseService<>), typeof(BaseService<>));
+            services.AddScoped<IIdentityService, IdentityService>();
+            services.AddScoped<ICategoryService, CategoryService>();
         }
 
-        public static void RegisterAppServices(this IServiceCollection services)
+        public static void RegisterApplicationServices(this IServiceCollection services)
         {
-            services.AddTransient<IAuthenticationAppService, AuthenticationAppService>();
-            services.AddTransient<ICategoryAppService, CategoryAppService>();
-
-            services.AddAutoMapper(typeof(MappingProfile));
+            services.AddScoped<IIdentityAppService, IdentityAppService>();
+            services.AddScoped<ICategoryAppService, CategoryAppService>();
         }
     }
 }

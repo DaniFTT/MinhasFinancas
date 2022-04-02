@@ -7,33 +7,34 @@ namespace MinhasFinancas.Infra.Data.Repository
 {
     public class CategoryRepository : BaseRepository<Category>, ICategoryRepository
     {
-        private readonly DbContextOptions<Context> _optionsBuilder;
+        private readonly DbContextOptions<DataContext> _optionsBuilder;
         public CategoryRepository()
         {
-            _optionsBuilder = new DbContextOptions<Context>();
+            _optionsBuilder = new DbContextOptions<DataContext>();
         }
 
-        public async Task<Category?> GetById(int Id, string? UserId)
+        public override async Task<Category?> GetById(int Id)
         {
-            using (var data = new Context(_optionsBuilder))
+            using (var data = new DataContext(_optionsBuilder))
             {
-                return await data.Set<Category>().Where(c => c.UserId == UserId && c.Id == Id).FirstOrDefaultAsync();
+
+                return await data.Set<Category>().Where(c => c.UserId == _currentUserId && c.Id == Id).FirstOrDefaultAsync();
             }
         }
 
-        public async Task<IEnumerable<Category>> ListUserCategories(string? UserId)
+        public async Task<IEnumerable<Category>> ListUserCategories()
         {
-            using (var data = new Context(_optionsBuilder))
+            using (var data = new DataContext(_optionsBuilder))
             {
-                return await data.Set<Category>().AsNoTracking().Where(c => c.UserId == UserId).ToListAsync();
+                return await data.Set<Category>().AsNoTracking().Where(c => c.UserId == _currentUserId).ToListAsync();
             }
         }
 
-        public async Task<IEnumerable<Category>> ListUserCategoryByType(bool type, string? UserId)
+        public async Task<IEnumerable<Category>> ListUserCategoryByType(bool type)
         {
-            using (var data = new Context(_optionsBuilder))
+            using (var data = new DataContext(_optionsBuilder))
             {
-                return await data.Set<Category>().AsNoTracking().Where(c => c.Type == type && c.UserId == UserId).ToListAsync();
+                return await data.Set<Category>().AsNoTracking().Where(c => c.Type == type && c.UserId == _currentUserId).ToListAsync();
             }
         }
     }

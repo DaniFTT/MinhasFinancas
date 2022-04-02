@@ -32,9 +32,6 @@ namespace MinhasFinancas.Domain.Services
 
         public virtual async Task<IEnumerable<T>> List() => await _baseRepository.List();
 
-        public virtual async Task Delete(T obj)
-        {
-            await _baseRepository.Delete(obj);
-        }
+        public virtual async Task Delete(T obj) => await _baseRepository.Delete(obj);
     }
 }

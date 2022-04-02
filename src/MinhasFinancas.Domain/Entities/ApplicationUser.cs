@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using MinhasFinancas.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -15,9 +14,6 @@ namespace MinhasFinancas.Domain.Entities
         [Required()]
         [Column("User_Age")]
         public int UserAge { get; set; }
-
-        [Column("User_Type")]
-        public UserType UserType { get; set; }
 
         public ICollection<Category>? Categories { get; set; }
 

@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MinhasFinancas.Application\MinhasFinancas.Application.csproj" />
+    <ProjectReference Include="..\MinhasFinancas.Infra.Identity\MinhasFinancas.Infra.Identity.csproj" />
+    <ProjectReference Include="..\MinhasFinancas.Infra.IoC\MinhasFinancas.Infra.IoC.csproj" />
+    <ProjectReference Include="..\MinhasFinancas.Infra.Swagger\MinhasFinancas.Infra.Swagger.csproj" />
+    <ProjectReference Include="..\MinhasFinancas.Infra.Data\MinhasFinancas.Infra.Data.csproj" />
+  </ItemGroup>
+
+</Project>

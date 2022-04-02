@@ -8,6 +8,7 @@ namespace MinhasFinancas.Infra.Swagger
     {
         public static IServiceCollection AddSwaggerConfiguration(this IServiceCollection services)
         {
+            services.AddEndpointsApiExplorer();
             return services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Minhas Finanças", Version = "v1" });
@@ -32,9 +33,12 @@ namespace MinhasFinancas.Infra.Swagger
                               {
                                   Type = ReferenceType.SecurityScheme,
                                   Id = "Bearer"
-                              }
+                              },
+                              Scheme = "oauth2",
+                              Name = "Bearer",
+                              In = ParameterLocation.Header
                           },
-                         new string[] {}
+                          new List<string>()
                     }
                 });
             });
@@ -46,6 +50,7 @@ namespace MinhasFinancas.Infra.Swagger
             {
                 c.SwaggerEndpoint("../swagger/v1/swagger.json", "API v1");
             });
+
         }
     }
 }

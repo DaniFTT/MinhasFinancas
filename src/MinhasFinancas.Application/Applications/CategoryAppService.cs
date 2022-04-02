@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MinhasFinancas.Application.Interfaces;
 using MinhasFinancas.Application.ViewModels;
 using MinhasFinancas.Application.ViewModels.Category;
@@ -10,12 +9,10 @@ namespace MinhasFinancas.Application.Applications
 {
     public class CategoryAppService : ICategoryAppService
     {
-        protected readonly IMapper _mapper;
         protected readonly ICategoryService _categoryService;
 
-        public CategoryAppService(IMapper mapper, ICategoryService categoryService)
+        public CategoryAppService(ICategoryService categoryService)
         {
-            _mapper = mapper;
             _categoryService = categoryService;
         }
 

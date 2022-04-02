@@ -8,16 +8,12 @@ namespace MinhasFinancas.Domain.Services
     public class CategoryService : BaseService<Category>, ICategoryService
     {
         private readonly ICategoryRepository _categoryRepository;
-        private readonly IAuthenticationService _userService;
-        public CategoryService(IBaseRepository<Category> baseRepository, ICategoryRepository categoryRepository, IAuthenticationService userService) : base(baseRepository)
+        public CategoryService(IBaseRepository<Category> baseRepository, ICategoryRepository categoryRepository) : base(baseRepository)
         {
             _categoryRepository = categoryRepository;
-            _userService = userService;
         }
         public override Task<Category> Add(Category obj)
         {
-            obj.UserId = _userService.GetIdLoggedUser();
-
             return base.Add(obj);
         }
 
@@ -34,26 +30,22 @@ namespace MinhasFinancas.Domain.Services
 
         public override async Task<Category?> GetById(int id)
         {
-            var UserId = _userService.GetIdLoggedUser();
-            return await _categoryRepository.GetById(id, UserId);
+            return await _categoryRepository.GetById(id);
         }
 
         public async Task<IEnumerable<Category>> ListUserEntryCategories()
         {
-            var userId = _userService.GetIdLoggedUser();
-            return await _categoryRepository.ListUserCategoryByType(false, userId);
+            return await _categoryRepository.ListUserCategoryByType(false);
         }
 
         public async Task<IEnumerable<Category>> ListUserOutputCategories()
         {
-            var userId = _userService.GetIdLoggedUser();
-            return await _categoryRepository.ListUserCategoryByType(true, userId);
+            return await _categoryRepository.ListUserCategoryByType(true);
         }
 
         public async Task<IEnumerable<Category>> ListUserCategories()
         {
-            var userId = _userService.GetIdLoggedUser();
-            return await _categoryRepository.ListUserCategories(userId);
+            return await _categoryRepository.ListUserCategories();
         }
     }
 }

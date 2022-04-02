@@ -7,14 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MinhasFinancas.Domain\MinhasFinancas.Domain.csproj" />
-    <ProjectReference Include="..\MinhasFinancas.Infra.AuthConfig\MinhasFinancas.Infra.AuthConfig.csproj" />
-    <ProjectReference Include="..\MinhasFinancas.Infra.CrossCutting.AuthConfig\MinhasFinancas.Infra.AuthConfig.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DTOs\AdminDTOs\" />
+    <Folder Include="DTOs\CategoryDTOs\" />
+    <Folder Include="DTOs\UserDTOs\" />
   </ItemGroup>
 
 </Project>
