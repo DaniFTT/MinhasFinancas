@@ -44,7 +44,7 @@ namespace MinhasFinancas.Infra.Data.Repository
         {
             using (var data = new DataContext(_optionsBuilder))
             {
-                return await data.Set<Category>().AsNoTracking().Where(c => c.Type == type && c.UserId == GetCurrentUserId()).ToListAsync();
+                return await data.Set<Category>().AsNoTracking().Where(c => c.UserId == GetCurrentUserId() && c.Type == type).ToListAsync();
             }
         }
     }
