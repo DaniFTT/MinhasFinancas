@@ -9,7 +9,7 @@ namespace MinhasFinancas.Domain.Entities
         [Required()]
         [Column("User_Fullname")]
         [MaxLength(50)]
-        public string? UserFullname { get; set; }
+        public string UserFullname { get; set; } = string.Empty;
 
         [Required()]
         [Column("User_Age")]

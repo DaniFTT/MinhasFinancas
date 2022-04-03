@@ -2,7 +2,7 @@
 
 namespace MinhasFinancas.Application.DTOs.AuthenticationDTOs.Response
 {
-    public class UserResponse : BaseResponseDTO
+    public class UserResponse : BaseResponse
     {
     }
 }

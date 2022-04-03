@@ -30,7 +30,7 @@ namespace MinhasFinancas.Infra.IoC
                 .AddEntityFrameworkStores<DataContext>()
                 .AddDefaultTokenProviders();
 
-            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             services.AddHttpContextAccessor();
             services.RegisterServices();
             services.RegisterApplicationServices();
@@ -48,12 +48,14 @@ namespace MinhasFinancas.Infra.IoC
         {
             services.AddScoped(typeof(IBaseService<>), typeof(BaseService<>));
             services.AddScoped<IIdentityService, IdentityService>();
+            services.AddScoped<IAdminSetupService, AdminSetupService>();
             services.AddScoped<ICategoryService, CategoryService>();
         }
 
         public static void RegisterApplicationServices(this IServiceCollection services)
         {
             services.AddScoped<IIdentityAppService, IdentityAppService>();
+            services.AddScoped<IAdminAppService, AdminAppService>();
             services.AddScoped<ICategoryAppService, CategoryAppService>();
         }
     }

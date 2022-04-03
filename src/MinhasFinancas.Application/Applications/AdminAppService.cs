@@ -1,45 +1,59 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MinhasFinancas.Application.DTOs.AdminDTOs.Request;
+using MinhasFinancas.Application.DTOs.AdminDTOs.Response;
 using MinhasFinancas.Application.Interfaces;
+using MinhasFinancas.Application.Interfaces.Services;
 using MinhasFinancas.Domain.Interfaces.Services;
 
 namespace MinhasFinancas.Application.Applications
 {
     public class AdminAppService : IAdminAppService
     {
-        protected readonly IAdminService _adminService;
+        protected readonly IAdminSetupService _adminService;
 
-        public AdminAppService(IAdminService adminService)
+        public AdminAppService(IAdminSetupService adminService)
         {
             _adminService = adminService;
         }
-        public Task<IActionResult> AddUserToRole(string email, string roleName)
+
+        public async Task<RolesResponse> GetAllRoles()
         {
-            throw new NotImplementedException();
+            return await _adminService.GetAllRoles();
         }
 
-        public Task<IActionResult> CreateRole(string name)
+        public async Task<AddUserToRoleResponse> AddUserToRole(AddUserToRoleRequest addUserToRoleRequest)
         {
-            throw new NotImplementedException();
+            return await _adminService.AddUserToRole(addUserToRoleRequest);
         }
 
-        public IActionResult GetAllRoles()
+        public async Task<CreateRoleResponse> CreateRole(string roleName)
         {
-            throw new NotImplementedException();
+            return await _adminService.CreateRole(roleName);
         }
 
-        public Task<IActionResult> GetAllUsers()
+        public async Task<UserResponse> GetAllUsers()
         {
-            throw new NotImplementedException();
+            return await _adminService.GetAllUsers();
         }
 
-        public Task<IActionResult> GetUserRoles(string email)
+        public async Task<RolesResponse> GetUserRoles(string userEmail)
         {
-            throw new NotImplementedException();
+            return await _adminService.GetUserRoles(userEmail);
         }
 
-        public Task<IActionResult> RemoveUserFromRole(string email, string roleName)
+        public async Task<RemoveUserFromRoleResponse> RemoveUserFromRole(RemoveUserFromRoleRequest removeUserFromRoleRequest)
         {
-            throw new NotImplementedException();
+            return await _adminService.RemoveUserFromRole(removeUserFromRoleRequest);
+        }
+
+        public async Task<AddUserToClaimsResponse> AddClaimsToUser(AddClaimsToUserRequest addClaimsToUserRequest)
+        {
+            return await _adminService.AddClaimsToUser(addClaimsToUserRequest);
+        }
+
+        public async Task<ClaimsResponse> GetAllClaims(string userEmail)
+        {
+            return await _adminService.GetAllClaims(userEmail);
         }
     }
 }

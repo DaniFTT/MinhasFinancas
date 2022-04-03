@@ -1,13 +1,19 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MinhasFinancas.Application.Interfaces;
 using MinhasFinancas.Application.ViewModels.Category;
+using MinhasFinancas.Infra.Identity.Constants;
 
 namespace MinhasFinancas.WebApi.Controllers
 {
-    [Route("api/[controller]/")]
     [ApiController]
-    [Authorize]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.UserApp)]
+    [Route("api/[controller]/")]
+    [Produces("application/json")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryAppService _categoryAppService;
@@ -16,16 +22,7 @@ namespace MinhasFinancas.WebApi.Controllers
             _categoryAppService = categoryAppService;
         }
 
-
-        /// <summary>
-        /// Metodo para criar uma Categoria
-        /// </summary>
-        /// <param name="categoryViewModel">Dados necessarios para criação da categoria</param>
-        /// <returns>Retorna  status de sucesso ou falha</returns>
-        [Produces("application/json")]
         [HttpPost("CreateCategory")]
-        [ProducesResponseTypeAttribute(StatusCodes.Status200OK)]
-        [ProducesResponseTypeAttribute(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateCategory([FromBody] CreateUpdateCategoryViewModel categoryViewModel)
         {
             if (ModelState.IsValid)
@@ -43,7 +40,6 @@ namespace MinhasFinancas.WebApi.Controllers
             return BadRequest("Erro ao adicionar Categoria. Verique os campos preenchidos.");
         }
 
-        [Produces("application/json")]
         [HttpPut("UpdateCategory")]
         public async Task<IActionResult> UpdateCategory([FromBody] CreateUpdateCategoryViewModel categoryViewModel)
         {
@@ -62,7 +58,6 @@ namespace MinhasFinancas.WebApi.Controllers
             return BadRequest("Erro ao atualizar Categoria. Verique os campos preenchidos.");
         }
 
-        [Produces("application/json")]
         [HttpDelete("DeleteCategory")]
         public async Task<IActionResult> DeleteCategory([FromQuery] Guid Id)
         {
@@ -76,7 +71,6 @@ namespace MinhasFinancas.WebApi.Controllers
             }
         }
 
-        [Produces("application/json")]
         [HttpGet("GetById")]
         public async Task<IActionResult> GetById(Guid Id)
         {
@@ -91,22 +85,19 @@ namespace MinhasFinancas.WebApi.Controllers
             }
         }
 
-        [Produces("application/json")]
-        [HttpGet("GetAllCategories")]
+        [HttpGet("GetAllUserCategories")]
         public async Task<IActionResult> GetAllUserCategories()
         {
             return Ok(await _categoryAppService.ListUserCategories());
         }
 
-        [Produces("application/json")]
-        [HttpGet("GetEntryCategories")]
+        [HttpGet("GetUserEntryCategories")]
         public async Task<IActionResult> GetUserEntryCategories()
         {
             return Ok(await _categoryAppService.ListUserEntryCategories());
         }
 
-        [Produces("application/json")]
-        [HttpGet("GetOutputCategories")]
+        [HttpGet("GetUserOutputCategories")]
         public async Task<IActionResult> GetUserOutputCategories()
         {
             return Ok(await _categoryAppService.ListUserOutputCategories());

@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\AdminDTOs\" />
     <Folder Include="DTOs\CategoryDTOs\" />
     <Folder Include="DTOs\UserDTOs\" />
   </ItemGroup>

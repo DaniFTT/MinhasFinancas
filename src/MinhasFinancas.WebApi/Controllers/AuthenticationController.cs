@@ -5,9 +5,13 @@ using MinhasFinancas.Application.Interfaces;
 
 namespace MinhasFinancas.WebApi.Controllers
 {
+    [ApiController]
     [AllowAnonymous]
     [Route("api/[controller]/")]
-    [ApiController]
+    [Produces("application/json")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public class AuthenticationController : ControllerBase
     {
         private readonly IIdentityAppService _identityAppService;
@@ -18,10 +22,6 @@ namespace MinhasFinancas.WebApi.Controllers
 
 
         [HttpPost("Login")]
-        [Produces("application/json")]
-        [ProducesResponseTypeAttribute(StatusCodes.Status200OK)]
-        [ProducesResponseTypeAttribute(StatusCodes.Status400BadRequest)]
-        [ProducesResponseTypeAttribute(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Login([FromBody] UserLoginRequest userLoginRequest)
         {
             if (ModelState.IsValid)
@@ -30,6 +30,8 @@ namespace MinhasFinancas.WebApi.Controllers
                 
                 if (loginResult.Success)
                     return Ok(loginResult);
+                else if (loginResult.IsInvalidResponse())
+                    return BadRequest(loginResult);
 
                 return Unauthorized(loginResult);
             }
@@ -40,10 +42,6 @@ namespace MinhasFinancas.WebApi.Controllers
 
 
         [HttpPost("Register")]
-        [Produces("application/json")]
-        [ProducesResponseTypeAttribute(StatusCodes.Status200OK)]
-        [ProducesResponseTypeAttribute(StatusCodes.Status400BadRequest)]
-        [ProducesResponseTypeAttribute(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Register([FromBody] UserRegisterRequest userRegisterRequest)
         {
             if (ModelState.IsValid)
@@ -52,14 +50,13 @@ namespace MinhasFinancas.WebApi.Controllers
 
                 if (registerResult.Success)
                     return Ok(registerResult);
-                else if (registerResult.Errors.Any())
+                else if (registerResult.IsInvalidResponse())
                     return BadRequest(registerResult);
 
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
 
-
-            return BadRequest("Tentativa de Registro Invalida");
+            return BadRequest("Tentativa de Registro Inválida");
         }
     }
 }

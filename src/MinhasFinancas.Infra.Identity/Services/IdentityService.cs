@@ -16,20 +16,15 @@ namespace MinhasFinancas.Infra.Identity.Services
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly JwtOptions _jwtOptions;
 
         public IdentityService(SignInManager<ApplicationUser> signInManager,
                                 UserManager<ApplicationUser> userManager,
                                 RoleManager<IdentityRole> roleManager,
-                                IHttpContextAccessor httpContextAccessor,
                                 IOptions<JwtOptions> jwtOptions)
         {
             _signInManager = signInManager;
-            _roleManager = roleManager;
             _userManager = userManager;
-            _httpContextAccessor = httpContextAccessor;
             _jwtOptions = jwtOptions.Value;
         }
         public async Task<UserLoginResponse> Login(UserLoginRequest userLoginRequest)
@@ -56,10 +51,9 @@ namespace MinhasFinancas.Infra.Identity.Services
 
                 return usuarioLoginResponse;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                usuarioLoginResponse = new UserLoginResponse();
-                return usuarioLoginResponse;
+                return new UserLoginResponse();
             }
         }
 
@@ -74,18 +68,22 @@ namespace MinhasFinancas.Infra.Identity.Services
                     Email = userRegisterRequest.Email,
                     UserFullname = userRegisterRequest.Fullname,
                     UserAge = userRegisterRequest.Age,
-                    EmailConfirmed = true
+                    EmailConfirmed = true,
                 };
 
                 var result = await _userManager.CreateAsync(user, userRegisterRequest.Password);
-                usuarioCadastroResponse = new UserRegisterResponse(result.Succeeded);
+                usuarioCadastroResponse = new UserRegisterResponse("Usuário registrado com Sucesso",result.Succeeded);
 
                 if (result.Succeeded)
                 {
                     var addRoleToUserResult = await _userManager.AddToRoleAsync(user, Roles.UserApp);
 
                     if (!addRoleToUserResult.Succeeded && addRoleToUserResult.Errors.Any())
-                        usuarioCadastroResponse.AdicionarErros(result.Errors.Select(r => r.Description));
+                    {
+                        var addRoleToUserResponse = new UserRegisterResponse(false);
+                        addRoleToUserResponse.AdicionarErros(result.Errors.Select(r => r.Description));
+                        return addRoleToUserResponse;
+                    }
 
                     await _userManager.SetLockoutEnabledAsync(user, false);
 
@@ -97,10 +95,9 @@ namespace MinhasFinancas.Infra.Identity.Services
 
                 return usuarioCadastroResponse;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                usuarioCadastroResponse = new UserRegisterResponse();
-                return usuarioCadastroResponse;
+                return new UserRegisterResponse();
             }
         }
 
@@ -149,19 +146,6 @@ namespace MinhasFinancas.Infra.Identity.Services
                 claims.Add(new Claim("role", role));
 
             return claims;
-        }
-
-        public string GetCurrentUserId()
-        {
-            var identity = _httpContextAccessor.HttpContext?.User?.Identity as ClaimsIdentity;
-            var result = string.Empty;
-
-            if (identity?.IsAuthenticated ?? false)
-            {
-                result = identity?.FindFirst("userId")?.Value;
-            }
-
-            return result ?? string.Empty;
         }
     }
 }

@@ -31,7 +31,7 @@ namespace MinhasFinancas.Infra.Data.Configurations
 
         public string ObterStringDeConexao()
         {
-            string strncon = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Minhas_Financas;Integrated Security=False;User ID=sa;Password=61403641;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            string strncon = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Minhas_Financas;Integrated Security=False;User ID=sa;Password=123456;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             return strncon;
         }
     }
