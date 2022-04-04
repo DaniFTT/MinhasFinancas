@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using MinhasFinancas.Domain.Entities;
 using System.Reflection;
 
@@ -17,7 +18,12 @@ namespace MinhasFinancas.Infra.Data.Configurations
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(ObterStringDeConexao(), b => b.MigrationsAssembly("MinhasFinancas.WebApi"));
+                IConfigurationRoot configuration = new ConfigurationBuilder()
+                    .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                    .AddJsonFile("appsettings.json")
+                    .Build();
+
+                optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("MinhasFinancas.WebApi"));
                 base.OnConfiguring(optionsBuilder);            
             }
         }
@@ -27,12 +33,6 @@ namespace MinhasFinancas.Infra.Data.Configurations
             builder.Entity<ApplicationUser>().ToTable("AspNetUsers").HasKey(t => t.Id);
 
             base.OnModelCreating(builder);
-        }
-
-        public string ObterStringDeConexao()
-        {
-            string strncon = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Minhas_Financas;Integrated Security=False;User ID=sa;Password=123456;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-            return strncon;
         }
     }
 }
